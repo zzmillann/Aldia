@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aldia - Pioneros en Ingeniería Legal</title>
+
+  <!-- Fuente moderna (Inter) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="./styles/style.css">
+  <link rel="stylesheet" href="./styles/preload.css">
+  <style>
+    :root {
+      --bg-light: #ffffff;
+      --text-main: #0e0e0e;
+      --text-muted: #666666;
+      --card-bg: #ffffff;
+      --card-border: rgba(0, 0, 0, 0.04);
+      --card-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.05);
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-main);
+      overflow-x: hidden;
+    }
+
+    /* Navbar consistente con el resto de la web */
+    .navbar {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: none;
+    }
+
+    /* Hero Layout (Inspirado en la imagen pero con estilo Aldia Blanco) */
+    .hero-legal {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 140px 8% 80px;
+      gap: 5rem;
+      position: relative;
+    }
+
+    .hero-content {
+      flex: 1.3;
+      z-index: 2;
+    }
+
+    .hero-subtitle {
+      font-size: 0.85rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #999;
+      margin-bottom: 1.5rem;
+      margin-left: 100px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 5.5vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 2rem;
+    }
+
+    .hero-title span {
+      display: block;
+      color: #666;
+    }
+
+    .hero-description {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 580px;
+      margin-bottom: 3.5rem;
+    }
+
+    /* Grid de tarjetas estadísticas (Modo Claro Premium) */
+    .hero-stats-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      z-index: 2;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid transparent;
+      border-radius: 32px;
+      padding: 3rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+      box-shadow: var(--card-shadow);
+      position: relative;
+      cursor: default;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 40px 80px -10px rgba(0, 0, 0, 0.18), 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+      border-color: rgba(0, 0, 0, 0.08);
+      transition-duration: 0.25s;
+      transition-delay: 0s !important;
+    }
+
+    .stat-card.offset {
+      margin-top: 50px;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text-main);
+    }
+
+    .stat-label {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      font-weight: 500;
+    }
+
+    /* Iconos sutiles tipo marca de agua */
+    .stat-icon {
+      display: none;
+    }
+
+    /* Botón de acción estilo Aldia */
+    .btn-action-legal {
+      display: inline-block;
+      background: var(--text-main);
+      color: #fff;
+      padding: 1.3rem 3rem;
+      border-radius: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-action-legal:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Animaciones */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.9s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1100px) {
+      .hero-legal {
+        flex-direction: column;
+        padding-top: 180px;
+        text-align: center;
+        gap: 3rem;
+      }
+
+      .hero-description {
+        margin: 0 auto 3.5rem;
+      }
+
+      .hero-subtitle {
+        justify-content: center;
+      }
+
+      .stat-card.offset {
+        margin-top: 0;
+      }
+
+      .hero-stats-grid {
+        width: 100%;
+        max-width: 800px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero-stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-title {
+        font-size: 2.8rem;
+      }
+    }
+
+    /* Split Feature Section */
+    .split-feature-section {
+      padding: 60px 8% 120px;
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 6rem;
+    }
+
+    .split-visuals {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .split-box {
+      background-color: #f5f5f5;
+      border-radius: 24px;
+      width: 100%;
+    }
+
+    .split-box.top {
+      aspect-ratio: 16 / 10;
+    }
+
+    .split-box.bottom {
+      aspect-ratio: 16 / 10;
+    }
+
+    .split-content {
+      flex: 1.1;
+      max-width: 650px;
+    }
+
+    .split-content h2 {
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 2rem;
+      color: #0e0e0e;
+    }
+
+    .split-content p {
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 960px) {
+      .split-feature-section {
+        flex-direction: column;
+        gap: 4rem;
+      }
+      .split-visuals {
+        width: 100%;
+      }
+    }
+
+    /* Testimonial Section (Miro Style) */
+    .testimonial-section {
+      padding: 60px 8% 120px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .testimonial-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 40px;
+      gap: 4rem;
+    }
+
+    .testimonial-title {
+      flex: 1;
+      font-size: clamp(2rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: #0e0e0e;
+    }
+
+    .testimonial-desc {
+      flex: 1;
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.5;
+      max-width: 500px;
+    }
+
+    .testimonial-desc strong {
+      color: #000;
+      font-weight: 600;
+    }
+
+    .testimonial-box {
+      background-color: #f5f5f5;
+      border-radius: 32px;
+      padding: 5rem 4rem 3rem 4rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      min-height: 550px;
+    }
+
+    .testimonial-quote {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.25;
+      color: #0e0e0e;
+      max-width: 700px;
+      margin-bottom: 2rem;
+      letter-spacing: -0.02em;
+    }
+
+    .testimonial-author {
+      font-size: 1.05rem;
+      color: #555;
+      line-height: 1.5;
+      margin-bottom: 4rem;
+      max-width: 300px;
+    }
+
+    .testimonial-author strong {
+      color: #111;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .testimonial-tabs {
+      display: flex;
+      gap: 2.5rem;
+      overflow-x: auto;
+      margin-top: auto; /* Empuja las pestañas al final del cuadro */
+      padding-bottom: 1rem;
+    }
+
+    .testimonial-tabs .tab {
+      color: #888;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      cursor: pointer;
+      min-width: max-content;
+      transition: all 0.3s;
+    }
+
+    .testimonial-tabs .tab strong {
+      color: #555;
+      font-size: 1rem;
+      display: block;
+      margin-bottom: 4px;
+      transition: all 0.3s;
+    }
+
+    .testimonial-tabs .tab.active {
+      color: #111;
+    }
+
+    .testimonial-tabs .tab.active strong {
+      color: #111;
+    }
+
+    @media (max-width: 900px) {
+      .testimonial-header {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .testimonial-box {
+        padding: 3rem 2rem;
+      }
+      .testimonial-tabs {
+        gap: 1.5rem;
+      }
+    }
+
+    /* Apple Layout Section */
+    .apple-layout-section {
+      padding: 60px 8% 120px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .apple-full-card {
+      background-color: #f5f5f5;
+      border-radius: 32px;
+      padding: 6rem 3rem;
+      text-align: center;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .apple-icon {
+      margin-bottom: 1.5rem;
+      color: #0e0e0e;
+    }
+
+    .apple-icon svg {
+      width: 48px;
+      height: 48px;
+    }
+
+    .apple-full-card h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      max-width: 700px;
+    }
+
+    .apple-underline {
+      text-decoration: underline;
+      text-decoration-color: #10a33c; /* Tono verde elegante de tecnología */
+      text-underline-offset: 6px;
+      text-decoration-thickness: 3px;
+    }
+
+    .apple-full-card p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 1.5rem;
+    }
+
+    .apple-link {
+      color: #0066cc;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: auto;
+    }
+
+    .apple-link:hover {
+      text-decoration: underline;
+    }
+
+    .apple-link svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+    }
+
+    .apple-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .apple-card {
+      background-color: #f5f5f5;
+      border-radius: 32px;
+      padding: 3.5rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-height: 380px;
+    }
+
+    .apple-card .apple-icon {
+      margin-bottom: 2rem;
+      color: #10a33c;
+    }
+
+    .apple-card .apple-icon svg {
+      width: 36px;
+      height: 36px;
+    }
+
+    .apple-card h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+      color: #333;
+    }
+
+    .apple-card h3 span.plain-text {
+      font-weight: 400;
+      color: #555;
+    }
+
+    @media (max-width: 900px) {
+      .apple-grid {
+        grid-template-columns: 1fr;
+      }
+      .apple-full-card {
+        padding: 4rem 2rem;
+      }
+    }
+    /* Trust Tech Section (Logos de Cumplimiento) */
+    .trust-tech-section {
+      padding: 0 8% 100px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .trust-tech-container {
+      background-color: #f5f5f5;
+      border-radius: 32px;
+      padding: 5rem 3rem;
+      text-align: center;
+    }
+
+    .trust-tech-container h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      color: #0e0e0e;
+    }
+
+    .trust-tech-container p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 3.5rem;
+      max-width: 750px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5;
+    }
+
+    .tech-logos-wrapper {
+      width: 100%;
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    }
+
+    .tech-logos {
+      display: flex;
+      align-items: center;
+      gap: 5rem;
+      width: max-content;
+      animation: scrollLogos 25s linear infinite;
+    }
+
+    .tech-logos:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes scrollLogos {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc(-50% - 2.5rem)); }
+    }
+
+    .tech-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #999;
+      letter-spacing: -0.03em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0.6;
+      transition: all 0.3s ease;
+      filter: grayscale(100%);
+    }
+
+    .tech-logo:hover {
+      opacity: 1;
+      filter: grayscale(0%);
+    }
+
+    .logo-anthropic { font-family: 'Times New Roman', Times, serif; font-weight: 400; font-style: italic; letter-spacing: 0; }
+    .logo-make { font-weight: 900; letter-spacing: -1px; text-transform: lowercase; }
+    .logo-gcloud { font-weight: 500; font-family: 'Inter', sans-serif; letter-spacing: -0.5px; }
+    
+    @media (max-width: 768px) {
+      .tech-logos {
+        gap: 3rem;
+        animation-duration: 20s;
+      }
+      .trust-tech-container {
+        padding: 4rem 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Global Preloader -->
+  <div class="aldia-preloader" id="aldiaPreloader">
+    <div class="preload-brand">
+      <span class="preload-text">aldia</span><div class="preload-dot"></div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <nav class="nav-container">
+      <ul class="nav-links">
+        <li>
+          <a href="index.html" class="nav-logo-link">
+            <img src="./assets/logo.png" alt="Aldia Logo" class="nav-logo">
+          </a>
+        </li>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="aldiaooptima.html">Aldia Óptima</a></li>
+        <li><a href="index.html#contact-section">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero-legal">
+      <div class="hero-content">
+        <div class="hero-subtitle reveal">PIONEROS EN INGENIERÍA LEGAL</div>
+        <h1 class="hero-title reveal">Escalamos su despacho <span>de extranjería.</span></h1>
+        <p class="hero-description reveal">
+          ¿Expedientes atascados, horas perdidas buscando citas y el equipo ahogado en papeleo repetitivo? Eliminamos la
+          fricción operativa instalando sistemas que asumen el trabajo mecánico: desde la automatización de
+          nacionalidades hasta la vigilancia 24/7 de notificaciones. Su bufete vuelve a facturar, no a gestionar.
+        </p>
+        <div class="reveal">
+          <a href="#contacto" class="btn-action-legal">Solicitar Auditoría de Expedientes</a>
+        </div>
+      </div>
+
+      <div class="hero-stats-grid">
+        <div class="stat-card reveal" style="transition-delay: 0.1s;">
+          <div class="stat-icon"></div>
+          <div class="stat-number">+<span class="counter" data-target="60">0</span>%</div>
+          <div class="stat-label">Capacidad de tramitación sin aumentar estructura</div>
+        </div>
+        <div class="stat-card offset reveal" style="transition-delay: 0.2s;">
+          <div class="stat-icon"></div>
+          <div class="stat-number"><span class="counter" data-target="100">0</span>%</div>
+          <div class="stat-label">Vigilancia automática de notificaciones y estados</div>
+        </div>
+        <div class="stat-card reveal" style="transition-delay: 0.3s;">
+          <div class="stat-icon"></div>
+          <div class="stat-number">+<span class="counter" data-target="25">0</span></div>
+          <div class="stat-label">Bufetes de extranjería optimizados por nuestro método</div>
+        </div>
+        <div class="stat-card offset reveal" style="transition-delay: 0.4s;">
+          <div class="stat-icon"></div>
+          <div class="stat-number"><span class="counter" data-target="0">0</span></div>
+          <div class="stat-label">Citas y resoluciones perdidas por error humano</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Apple Style Cards Section -->
+    <section class="apple-layout-section reveal">
+      <div class="apple-full-card">
+        <div class="apple-icon" style="color: #10a33c;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.92-10.27l-3.26-1.5"></path>
+          </svg>
+        </div>
+        <h2>Multiplique su capacidad operativa. <br>O <span class="apple-underline">redúzcala</span> a cero esfuerzo.</h2>
+        <p>Una infraestructura inteligente diseñada para la rentabilidad de su firma.</p>
+        <a href="#contacto" class="apple-link">
+          Aprenda más sobre nuestro sistema
+          <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <div class="apple-grid">
+        <div class="apple-card">
+          <div class="apple-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+          </div>
+          <h3>Defina sus propias <span class="apple-underline">reglas</span> <br><span class="plain-text">con flujos y revisiones documentales a medida.</span></h3>
+          <a href="#contacto" class="apple-link">Ver catálogo de herramientas <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+
+        <div class="apple-card">
+          <div class="apple-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          </div>
+          <h3><span class="apple-underline">Acelere</span> la presentación <br><span class="plain-text">incluso cuando las sedes electrónicas están masificadas.</span></h3>
+          <a href="#contacto" class="apple-link">Descubrir automatización avanzada <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+
+        <div class="apple-card">
+          <div class="apple-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3>Visualice <span class="apple-underline">márgenes más limpios</span> <br><span class="plain-text">reduciendo el coste de horas de gestión manual.</span></h3>
+          <a href="#contacto" class="apple-link">Ver análisis de rentabilidad <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Split Feature Section -->
+    <section class="split-feature-section reveal">
+      <div class="split-visuals">
+        <div class="split-box top"></div>
+        <div class="split-box bottom"></div>
+      </div>
+      <div class="split-content">
+        <h2>Nuestra infraestructura no está construida para mantenerse, está diseñada para crecer.</h2>
+        <p>Expansión a nuevos perfiles migratorios, tramitación masiva de arraigos y nacionalidades, y alianzas B2B con movilidad corporativa internacional.</p>
+        <p>La tecnología es lo que hace posible esta evolución sin que sus gastos de personal colapsen la rentabilidad.</p>
+      </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section class="testimonial-section reveal">
+      <div class="testimonial-header">
+        <h2 class="testimonial-title">Quienes ya están liderando el cambio.</h2>
+        <p class="testimonial-desc"><strong>Referentes corporativos e innovación legal</strong> que ya están escalando sus firmas con la automatización en extranjería.</p>
+      </div>
+      
+      <div class="testimonial-box">
+        <div class="testimonial-quote">
+          "El sistema no solo nos ha eliminado horas frente a la sede electrónica... nos ha dado el control y nuevas formas de captar talento internacional."
+        </div>
+        <div class="testimonial-author">
+          <strong>Socio Director</strong>
+          Firma Internacional de Movilidad
+        </div>
+        <div class="testimonial-tabs">
+          <div class="tab active">
+            <strong>Socio Director</strong>
+            Firma Internacional de Movilidad
+          </div>
+          <div class="tab">
+            <strong>Head of Legal</strong>
+            Boutique de Extranjería
+          </div>
+          <div class="tab">
+            <strong>CFO & Founder</strong>
+            Agencia de Migración
+          </div>
+          <div class="tab">
+            <strong>Directora Operaciones</strong>
+            Despacho B2B global
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust Tech Section (Logos de Software) -->
+    <section class="trust-tech-section reveal">
+      <div class="trust-tech-container">
+        <h2>Construimos sobre la tecnología más segura del mundo.</h2>
+        <p>Infraestructura blindada bajo los máximos estándares de cumplimiento normativo y privacidad de datos (RGPD) para la total tranquilidad de su firma legal.</p>
+        
+        <div class="tech-logos-wrapper">
+          <div class="tech-logos">
+            <!-- Bloque 1 de Logos -->
+            <div class="tech-logo">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M22.28 9.82a8.88 8.88 0 0 0-1.28-7.38c-.37-.58-1-.93-1.68-1A8.93 8.93 0 0 0 11.23.12 8.87 8.87 0 0 0 4.2 1.94c-.58.37-.93 1-1 1.68a8.93 8.93 0 0 0 .8 8.08 8.88 8.88 0 0 0 1.28 7.38c.37.58 1 .93 1.68 1a8.93 8.93 0 0 0 8.09 1.33 8.87 8.87 0 0 0 7.03-1.82c.58-.37.93-1 1-1.68a8.93 8.93 0 0 0-.8-8.09zm-8.39 11.64a6.83 6.83 0 0 1-5.63-2.92l.14-.08 6-3.46a.8.8 0 0 0 .4-.68V7.07l2.25 1.3v7.41a6.85 6.85 0 0 1-3.16 5.68zM5.56 18.06a6.84 6.84 0 0 1-1.37-6.22l.15.08 6 3.46v6.92l-2.25-1.3v-4.8a6.85 6.85 0 0 1-2.53-2.6.8.8 0 0 0-.4-.68zm-2.09-8.7a6.84 6.84 0 0 1 4.26-6.22V10L4.35 12.2a.8.8 0 0 0-.4.68v2.6a6.85 6.85 0 0 1-.48-6.14zm13.1-6.22a6.84 6.84 0 0 1 1.37 6.22l-.15-.08-6-3.46V2.9l2.25 1.3v4.8a6.85 6.85 0 0 1 2.53 2.6c.16.27.4.27.4.68zm2.09 8.7a6.84 6.84 0 0 1-4.26 6.22V14l3.38-2.2a.8.8 0 0 0 .4-.68v-2.6a6.85 6.85 0 0 1 .48 6.14zM10.11 2.54a6.83 6.83 0 0 1 5.63 2.92l-.14.08-6 3.46a.8.8 0 0 0-.4.68v7.24l-2.25-1.3V8.22a6.85 6.85 0 0 1 3.16-5.68zm1.89 12.01L8.62 12.6l3.38-1.95 3.38 1.95-3.38 1.95z"/></svg>
+              OpenAI
+            </div>
+            <div class="tech-logo logo-anthropic">Anthropic</div>
+            <div class="tech-logo logo-make">make</div>
+            <div class="tech-logo logo-gcloud">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+              Google Cloud
+            </div>
+            <div class="tech-logo" style="font-weight: 800; color: #ff6e5f;">n8n</div>
+            <div class="tech-logo" style="font-family: Georgia, serif;">Claude</div>
+            <div class="tech-logo">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.878-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zm-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884zm8.513-18.396A11.967 11.967 0 0 0 12.052 0C5.441 0 .062 5.378.06 11.989c0 2.112.551 4.175 1.597 5.991L0 24l6.182-1.62a11.95 11.95 0 0 0 5.867 1.53h.005c6.608 0 11.987-5.378 11.989-11.99.002-3.203-1.246-6.216-3.51-8.48z"/></svg>
+              WhatsApp
+            </div>
+
+            <!-- Bloque 2 (Duplicado para Marquee Infinito) -->
+            <div class="tech-logo">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M22.28 9.82a8.88 8.88 0 0 0-1.28-7.38c-.37-.58-1-.93-1.68-1A8.93 8.93 0 0 0 11.23.12 8.87 8.87 0 0 0 4.2 1.94c-.58.37-.93 1-1 1.68a8.93 8.93 0 0 0 .8 8.08 8.88 8.88 0 0 0 1.28 7.38c.37.58 1 .93 1.68 1a8.93 8.93 0 0 0 8.09 1.33 8.87 8.87 0 0 0 7.03-1.82c.58-.37.93-1 1-1.68a8.93 8.93 0 0 0-.8-8.09zm-8.39 11.64a6.83 6.83 0 0 1-5.63-2.92l.14-.08 6-3.46a.8.8 0 0 0 .4-.68V7.07l2.25 1.3v7.41a6.85 6.85 0 0 1-3.16 5.68zM5.56 18.06a6.84 6.84 0 0 1-1.37-6.22l.15.08 6 3.46v6.92l-2.25-1.3v-4.8a6.85 6.85 0 0 1-2.53-2.6.8.8 0 0 0-.4-.68zm-2.09-8.7a6.84 6.84 0 0 1 4.26-6.22V10L4.35 12.2a.8.8 0 0 0-.4.68v2.6a6.85 6.85 0 0 1-.48-6.14zm13.1-6.22a6.84 6.84 0 0 1 1.37 6.22l-.15-.08-6-3.46V2.9l2.25 1.3v4.8a6.85 6.85 0 0 1 2.53 2.6c.16.27.4.27.4.68zm2.09 8.7a6.84 6.84 0 0 1-4.26 6.22V14l3.38-2.2a.8.8 0 0 0 .4-.68v-2.6a6.85 6.85 0 0 1 .48 6.14zM10.11 2.54a6.83 6.83 0 0 1 5.63 2.92l-.14.08-6 3.46a.8.8 0 0 0-.4.68v7.24l-2.25-1.3V8.22a6.85 6.85 0 0 1 3.16-5.68zm1.89 12.01L8.62 12.6l3.38-1.95 3.38 1.95-3.38 1.95z"/></svg>
+              OpenAI
+            </div>
+            <div class="tech-logo logo-anthropic">Anthropic</div>
+            <div class="tech-logo logo-make">make</div>
+            <div class="tech-logo logo-gcloud">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+              Google Cloud
+            </div>
+            <div class="tech-logo" style="font-weight: 800; color: #ff6e5f;">n8n</div>
+            <div class="tech-logo" style="font-family: Georgia, serif;">Claude</div>
+            <div class="tech-logo">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.878-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zm-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884zm8.513-18.396A11.967 11.967 0 0 0 12.052 0C5.441 0 .062 5.378.06 11.989c0 2.112.551 4.175 1.597 5.991L0 24l6.182-1.62a11.95 11.95 0 0 0 5.867 1.53h.005c6.608 0 11.987-5.378 11.989-11.99.002-3.203-1.246-6.216-3.51-8.48z"/></svg>
+              WhatsApp
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION: FAQ ========== -->
+    <section class="faq-section reveal">
+      <div class="faq-container">
+        <div class="faq-left">
+          <p class="faq-tag">Infraestructura Legal-Tech</p>
+          <h2 class="faq-title">Dudas frecuentes<br>de nuestros socios</h2>
+          <a href="#contacto" class="faq-btn">Consultar viabilidad</a>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <div class="faq-question">
+              <h3>¿Hace falta cambiar el CRM o gestor documental que ya usamos?</h3>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+              En absoluto. Entendemos que cambiar la forma de trabajar del equipo paraliza la firma. Nuestro sistema y los agentes de IA se conectan en la sombra con las herramientas que su despacho ya utiliza, actuando como una "capa de inteligencia" invisible que transfiere la información sin obligarles a saltar de plataforma.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h3>¿Qué pasa si la Sede Electrónica cambia su sistema o normativa?</h3>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+              Ese es nuestro trabajo. Monitoreamos constantemente los canales telemáticos del Ministerio y Extranjería. Si hay una caída de plataforma, un rediseño del portal o un cambio en los modelos de presentación, actualizamos nuestros algoritmos inmediatamente para que sus expedientes nunca se atasquen.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h3>¿Es seguro dejar documentación sensible (pasaportes, penales) en manos de la IA?</h3>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+              Operamos con protocolos "zero-retention". Los modelos de inteligencia artificial extraen los datos en memoria volátil pura y, una vez cumplimentado el trámite o rellenada la ficha de su CRM, la información desaparece del eslabón de procesamiento. Cumplimos rigurosamente con RGPD y confidencialidad entre el cliente e institución.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <h3>¿Cuánto tarda mi despacho en percibir el ahorro de horas?</h3>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+              Desplegamos en módulos. Empezando por los cuellos de botella mayores (como el tracking masivo de notificaciones y citas), nuestros socios suelen ahorrarse de 15 a 45 horas semanales de gestión manual paralizante ya durante el primer mes de integración activa de nuestro sistema.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer Consistente -->
+  <footer style="padding: 80px 8%; background: #ffffff; border-top: none;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
+      <img src="./assets/logo.png" alt="Aldia" style="height: 30px;">
+      <p style="color: #999; font-size: 0.9rem;">© Aldia Legal 2026. Acceso exclusivo para firmas profesionales.</p>
+    </div>
+  </footer>
+
+  <!-- Aldia Global Components -->
+  <link rel="stylesheet" href="./styles/chat.css">
+  <script src="./scripts/chat.js"></script>
+  <script src="./scripts/preload.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Reveal Animations En Scroll
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+      // Contadores Animados Numericos
+      const counters = document.querySelectorAll('.counter');
+      const counterObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const numEl = entry.target;
+            const target = +numEl.getAttribute('data-target');
+            let startTimestamp = null;
+            const duration = 2000; // 2 segundos de animación
+
+            const step = (timestamp) => {
+              if (!startTimestamp) startTimestamp = timestamp;
+              const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+              // Efecto easeOutQuart para que frene suavemente al final
+              const easeOut = 1 - Math.pow(1 - progress, 4);
+              const current = Math.floor(easeOut * target);
+              numEl.innerText = current;
+
+              if (progress < 1) {
+                window.requestAnimationFrame(step);
+              } else {
+                numEl.innerText = target;
+              }
+            };
+
+            window.requestAnimationFrame(step);
+            observer.unobserve(numEl); // Solo se anima una vez
+          }
+        });
+      }, { threshold: 0.5 }); // Arranca cuando la caja está medio visible
+
+      counters.forEach(counter => counterObserver.observe(counter));
+
+      // FAQ Accordion
+      document.querySelectorAll('.faq-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const isActive = item.classList.contains('active');
+          document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+          if (!isActive) item.classList.add('active');
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

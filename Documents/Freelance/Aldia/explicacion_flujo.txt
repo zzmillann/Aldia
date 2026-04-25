@@ -1,0 +1,242 @@
+DOCUMENTACIÓN TÉCNICA DEFINITIVA Y LITERAl: FLUJO BÓKUN -> GOOGLE SHEETS
+========================================================================
+
+========================================================================
+FASE 1: RECEPCIÓN DEL WEBHOOK
+========================================================================
+
+NODO 1: Webhook
+- ¿Qué hace?: Es el "portero" del sistema. Mantiene una URL abierta esperando recibir notificaciones (JSON) desde Bókun. Cada vez que alguien compra, modifica o cancela un tour, Bókun golpea este webhook e inicia todo el proceso.
+
+NODO 2: Edit Fields6
+- ¿Qué hace?: Toma el JSON caótico que envía el Webhook y crea 23 variables "limpias". Asigna directamente a nombres fáciles de entender cosas como $json.Tour, $json.PAX, $json.Email, $json.bookingId, etc. Es una pre-limpieza básica.
+
+NODO 3: Edit Fields7
+- ¿Qué hace?: Segunda capa de limpieza. Además de copiar los datos de Edit Fields6, genera variables clave como "yearFolder" y "monthFolder" (los nombres de las carpetas que vamos a buscar) y asigna un texto fijo para la raíz de Dropbox: "/Reservas".
+
+========================================================================
+FASE 2: BÚSQUEDA Y CREACIÓN DE CARPETAS EN GOOGLE DRIVE
+========================================================================
+
+NODO 4: Search files and folders3
+- ¿Qué hace?: Busca en Google Drive una carpeta que se llame exactamente igual a la variable "yearFolder" (por ejemplo, "2026"). 
+
+NODO 5: If4 (Aclaración: Los IDs internos varían, este es el If que sigue a la primera búsqueda)
+- ¿Qué hace?: Evalúa si el nodo 4 encontró algo. Si la carpeta del año NO existe, manda el flujo hacia el nodo de crear carpeta. Si existe, lo manda al Merge.
+
+NODO 6: Copy file1 (Aclaración de orden temporal)
+- ¿Qué hace?: Es un nodo de Drive que copia un archivo base ("Copia de Plantilla reservas manu") y le pone como nombre la fecha del día. Se dispara si más adelante se detecta que el Excel del día no existe.
+
+NODO 7: Merge4
+- ¿Qué hace?: Nodo pasivo que simplemente junta los caminos de "se encontró el archivo" y "se creó el archivo copiando la plantilla", arrastrando el ID del archivo hacia adelante.
+
+NODO 8: Search files and folders4
+- ¿Qué hace?: Busca dentro de la carpeta del mes el Excel específico del día del tour (por ejemplo, "Reservas 2026-04-22.xlsx").
+
+NODO 9: If5
+- ¿Qué hace?: Verifica si se encontró la carpeta del año en el primer paso. Es el verdadero "If" emparejado con la carpeta del año.
+
+NODO 10: Create folder2
+- ¿Qué hace?: Ejecuta la creación literal de la carpeta del Año en Google Drive.
+
+NODO 11: Merge5
+- ¿Qué hace?: Unifica los caminos de la carpeta del Año (ya sea que la encontrara o la creara) garantizando que el flujo tenga un ID de carpeta del Año válido para continuar.
+
+NODO 12: Search files and folders5
+- ¿Qué hace?: Busca la carpeta del Mes (ej: "04 - Abril") dentro del ID de la carpeta del año.
+
+NODO 13: If6
+- ¿Qué hace?: Evalúa si la carpeta del Mes existe.
+
+NODO 14: Create folder3
+- ¿Qué hace?: Crea la carpeta del Mes en Google Drive si el If6 dice que no existe.
+
+NODO 15: Merge6
+- ¿Qué hace?: Unifica los caminos de la carpeta del Mes, obteniendo el ID definitivo de la carpeta del Mes.
+
+NODO 16 al 21: Edit Fields10, Edit Fields14, Edit Fields11, Edit Fields12, Edit Fields13, Edit Fields15
+- ¿Qué hacen?: Todos estos nodos son "puntos de control". Dado que la búsqueda de carpetas y archivos crea bifurcaciones (ramas verdaderas y falsas), el flujo necesita asegurar que, pase por la rama que pase, las variables originales (Tour, PAX, bookingId) no se pierdan. Estos nodos simplemente reasignan las variables de la reserva al flujo actual usando referencias tipo `$('Edit Fields7').item.json.Tour`. Es un mecanismo de seguridad para evitar datos en blanco (nulos) tras los "Merges". Además, extraen el ID del archivo de Excel ("dailyFileId") recién encontrado o creado.
+
+========================================================================
+FASE 3: LECTURA DEL EXCEL
+========================================================================
+
+NODO 22: HTTP Request (Lectura de Sheets)
+- ¿Qué hace?: Hace una petición a Google Sheets usando el ID del archivo diario. Descarga toda la hoja especificada en "sheetName" (por ejemplo, toda la pestaña "Privados" o "Toledo"). 
+
+NODO 23: Merge7
+- ¿Qué hace?: Junta los datos en crudo que acabamos de leer de las celdas del Excel con la información de la reserva que venía de los pasos anteriores.
+
+========================================================================
+FASE 4: ESCRITURA Y LOGS BÁSICOS
+========================================================================
+
+NODO 24: HTTP Request1 (Escritura en Sheets)
+- ¿Qué hace?: Es el nodo encargado de escribir los datos procesados de vuelta al Excel. Reemplaza el bloque específico de la hoja con la nueva información.
+
+NODO 25: IF | duplicate Found?
+- ¿Qué hace?: Pregunta: "¿El código JavaScript detectó que esta reserva ya estaba en el bloque de pendientes?". Si es true, cancela la inserción. Si es false, continúa.
+
+NODO 26: RESULT | Duplicate Skipped
+- ¿Qué hace?: Si el nodo 25 fue true, este nodo genera un log que dice "Reserva ya existente en bloque pending, no se inserta de nuevo".
+
+NODO 27: IF | Cancellation After Read?
+- ¿Qué hace?: Pregunta: "¿La reserva que estamos procesando es una CANCELACIÓN?". Si es true, va a la lógica de borrado. Si es false, va a la lógica de inserción.
+
+========================================================================
+FASE 5: LÓGICA DE CANCELACIONES (EL CEREBRO 1)
+========================================================================
+
+NODO 28: CODE | Remove Cancelled Booking From Pending
+- ¿Qué hace el código JavaScript?:
+  1. Toma la lista de todas las reservas que actualmente existen en el bloque horario "Pending" del Excel.
+  2. Crea dos funciones `safe()` y `isMeaningfulRow()`. Éstas eliminan celdas vacías, descartan filas de títulos (como "PENDING_START") y se quedan solo con las filas que son reservas reales.
+  3. Convierte las filas de Excel en objetos legibles (Tour, Hora, PAX...).
+  4. Usa `.some()` para buscar si el ID de nuestra reserva cancelada ("cancelledBookingId") coincide con alguna de las que están en el Excel. Lo guarda en "bookingFoundToCancel".
+  5. Usa `.filter()` para crear una NUEVA lista de reservas en la que EXCLUYE la reserva que acaba de ser cancelada. Esta nueva lista se llama "bookingsAfterRemoval".
+
+NODO 29: IF | Booking Found To Cancel?
+- ¿Qué hace?: Pregunta si la variable "bookingFoundToCancel" generada en el código anterior es verdadera. Si no se encontró, avisa.
+
+NODO 30: RESULT | Cancellation Not Found
+- ¿Qué hace?: Nodo que genera el log "La reserva cancelada no estaba en el bloque pending". No se borra nada.
+
+========================================================================
+FASE 6: LÓGICA GENERAL Y NORMALIZACIÓN BÓKUN (EL CEREBRO 2)
+========================================================================
+
+NODO 31: CODE | Clean Bokun Payload
+- ¿Qué hace el código JavaScript?:
+  Este es el "motor" principal de datos. Recibe a Bokun y lo exprime:
+  1. Diferencia entre datos históricos ("backfill") y datos en vivo (webhooks normales).
+  2. Identifica si es una cancelación o una reserva ("BOOKING_CONFIRMED" vs "BOOKING_CANCELLED") basándose en la palabra clave dentro del payload.
+  3. Une el Nombre del Tour con el ID del producto para crear un nombre completo y legible.
+  4. Analiza la cantidad de pasajeros (PAX). Si hay varios tipos (Adultos, Niños), construye un string bonito como "4 (2 Adults, 2 Children)".
+  5. Normaliza idiomas. Si viene "English", "ingles", "inglés", todo lo transforma a "Inglés".
+  6. Extrae el número de teléfono y el email de los datos de contacto, quitando espacios extra.
+  7. Ajusta fechas y horas a la Zona Horaria de Madrid.
+  8. CLASIFICACIÓN DE PESTAÑA ("sheetName"): Analiza el título del tour buscando palabras clave. Si encuentra "private" o "privado", le asigna la hoja "Privados". Si encuentra "contrasts", lo manda a la hoja "Contrastes". Si encuentra "avila", a la hoja "Ávila". Si no encaja en nada, va a "Varios".
+
+NODO 32: CODE | Normalize Time + Markers
+- ¿Qué hace el código JavaScript?:
+  1. Toma la hora (ej: "12:0") y le añade ceros a la izquierda si es necesario ("12:00").
+  2. Reemplaza los dos puntos por guiones bajos para crear la variable "markerHour" (ej: "12_00").
+  3. Crea tres marcadores dinámicos que luego se buscarán en el Excel. Por ejemplo, si es a las 12:00, crea:
+     - blockStartMarker = "BLOCK_12_00_PENDING_START"
+     - blockEndMarker = "BLOCK_12_00_PENDING_END"
+     - blockTitleMarker = "BLOCK_12_00_PENDING_TITLE"
+  4. Si es un tour Privado, los marcadores cambian a "PRIVATE_PENDING_START", etc.
+
+NODO 33: CODE | Build Drive Paths
+- ¿Qué hace el código JavaScript?:
+  Pura limpieza de texto. Coge la palabra "Reservas", el año "2026", el mes "Abril" y el archivo, y los concatena asegurándose de que no haya dobles barras inclinadas "//". Genera las rutas perfectas tipo: "/Reservas/2026/04 - Abril/Reservas 2026-04-22.xlsx".
+
+NODO 34: CODE | Find Block Markers
+- ¿Qué hace el código JavaScript?:
+  El radar. Recibe tooooodo el contenido del Excel y hace lo siguiente:
+  1. Un bucle "for" que lee fila por fila.
+  2. Si encuentra en alguna celda el marcador "BLOCK_12_00_PENDING_START", anota el número de esa fila (startRowIndex0).
+  3. Si encuentra "BLOCK_12_00_PENDING_END", anota esa otra fila (endRowIndex0).
+  4. Si NO encuentra el bloque de la hora específica, busca un bloque de emergencia llamado "UNMATCHED_PENDING_START" (reservas en horarios raros).
+  5. Al final, recorta del Excel original SOLO las filas que están entre el inicio y el fin del bloque encontrado. Esa selección de celdas la guarda en "pendingRowsRaw".
+
+NODO 35: CODE | Build Sheet Write Range
+- ¿Qué hace el código JavaScript?:
+  Simplemente junta el nombre de la pestaña con las celdas a escribir. Si la pestaña es "Toledo" y el rango es "A15:Z20", escupe el string final "Toledo!A15:Z20" que es lo que exige Google Sheets.
+
+NODO 36: CODE | Pad Rows
+- ¿Qué hace el código JavaScript?:
+  El equilibrador. Si había 5 reservas, y borramos 1, quedan 4. Si intentamos escribir 4 filas en un hueco de 5, la quinta fila antigua se quedaría en el Excel como un "fantasma". Este código compara cuántas filas había (existingRowCount) y cuántas hay ahora (newRowCount). Si ahora hay menos, rellena la diferencia inyectando filas totalmente vacías `['', '', '', '', '', '', '', '', '']` para "limpiar" el Excel.
+
+NODO 37: CODE | Build Write Plan
+- ¿Qué hace el código JavaScript?:
+  Calcula matemáticamente las coordenadas del Excel. 
+  Toma la fila de inicio que calculó el Nodo 34, le suma la cantidad de filas que generó el Nodo 36, y define con exactitud matemática: "Debes escribir desde la fila A30 hasta la I35".
+
+NODO 38: CODE | Build Rows To Write
+- ¿Qué hace el código JavaScript?:
+  Google Sheets no entiende objetos de programación. Solo entiende listas de textos. Este código toma la reserva organizada y la convierte en un array simple: `[Tour, Hora, ExtBookingRef, PAX, PAXTotal, Idioma, Contacto, Telefono, bookingId]`. Exactamente en el mismo orden que las columnas del Excel.
+
+NODO 39: CODE | Sort Bookings
+- ¿Qué hace el código JavaScript?:
+  El organizador. Antes de escribir en el Excel, coge todas las reservas del bloque horario y las ordena.
+  1. Les asigna una puntuación por Idioma: Español (1), Inglés (2), Francés (3), Alemán (4), etc.
+  2. Primero ordena por esta puntuación (para que los guías de español salgan juntos).
+  3. Si hay dos reservas en el mismo idioma, las desempata ordenándolas alfabéticamente por su ID de reserva externa ("ExtBookingRef").
+
+========================================================================
+FASE 7: LÓGICA DE CANCELACIÓN TARDÍA (<24h) Y CÁLCULOS FINALES
+========================================================================
+
+NODO 40: Edit Fields
+- ¿Qué hace?: Nodo que define el mensaje de éxito para cuando se elimina una cancelación con éxito ("Reserva cancelada eliminada correctamente").
+
+NODO 41: Append row in sheet
+- ¿Qué hace?: Un nodo de seguridad alternativo por si en lugar de modificar un bloque exacto (Rango A1), simplemente se quiere añadir una fila al final del documento.
+
+NODO 42 y 43: Edit Fields1 / Edit Fields2
+- ¿Qué hacen?: Preparan un mensaje enorme, detallado e formateado para enviarlo por Telegram (o similar) en caso de que ocurra una cancelación. Incluyen la hora en Madrid de la ejecución.
+
+NODO 44: RESULT | Final Write Success
+- ¿Qué hace?: Nodo de log. Confirma que la escritura por bloques de una nueva reserva fue un éxito total.
+
+NODO 45: Code in JavaScript
+- ¿Qué hace el código?:
+  Revisa el listado de archivos que encontró el buscador de Drive. Compara si el nombre del archivo encontrado (exact.json.name) es EXACTAMENTE igual al que esperábamos ("Reservas 2026-04-22"). Si no es exacto, devuelve un error para forzar al flujo a que cree uno nuevo.
+
+NODO 46: CODE | Parse Pending + Check Duplicate
+- ¿Qué hace el código JavaScript?:
+  Es el equivalente al Nodo 28, pero para NUEVAS RESERVAS.
+  1. Filtra las filas basura del Excel actual.
+  2. Compara el "bookingId" o el "ExtBookingRef" de la NUEVA reserva de Bókun con las filas del Excel.
+  3. Genera la variable "duplicateFound" (Verdadero/Falso).
+  4. Si NO es duplicado, inyecta la nueva reserva dentro de la lista actual del Excel, creando el array definitivo que se enviará al Excel en los siguientes pasos ("bookingsAfterInsert").
+
+NODO 47: Edit Fields3
+- ¿Qué hace?: Si el código descubrió que no existía un bloque horario para esta reserva, avisa: "RESERVA EN HORARIO NO CONTEMPLADO", para que el administrador sepa que se escribió en un cajón de sastre.
+
+NODO 48: CODE | Check Late Cancellation 24h
+- ¿Qué hace el código JavaScript?:
+  Usa una librería matemática de fechas. Compara la hora ACTUAL de Madrid con la hora DEL TOUR de Madrid.
+  Restando ambas fechas, saca el número de horas que faltan. Si el resultado es menor a 24 horas, activa la alarma "isLateCancellation24h = true".
+
+NODO 49: IF | Late Cancellation <24h?
+- ¿Qué hace?: Evalúa la variable del Nodo 48. Si es verdadera, desvía el flujo para enviar avisos de cancelación tardía.
+
+NODO 50: Edit Fields | Late Cancellation Result
+- ¿Qué hace?: Prepara el mensaje de pánico para Telegram: "🚨 CANCELACIÓN <24H". Avisa de que los guías y proveedores tienen que ser contactados manualmente urgentemente.
+
+NODO 51: IF | Is Cancellation Success?
+- ¿Qué hace?: Comprueba si el borrado del Excel funcionó para mandar el aviso a Telegram de cancelación normal o si hubo un fallo interno.
+
+NODO 52: IF | Used Unmatched Fallback?
+- ¿Qué hace?: Comprueba si la reserva tuvo que meterse en el bloque de emergencia (horarios no contemplados) para lanzar notificaciones de advertencia.
+
+NODO 53: IF | Is Cancellation Event?
+- ¿Qué hace?: El último chequeo para saber si toda la operación que acabamos de hacer pertenecía a una cancelación o a una creación.
+
+========================================================================
+FASE 8: NOTAS, ALERTAS Y AVISOS DE TELEGRAM
+========================================================================
+
+NODOS 54, 55, 56, 57, 58, 59, 63, 64, 67: Sticky Notes
+- ¿Qué hacen?: Son "Post-its" amarillos visuales dentro del lienzo de n8n. No hacen nada técnico, solo contienen descripciones para que el humano que mira la pantalla entienda qué hace cada zona del flujo.
+
+NODO 60: Aviso reserva en horarios no contemplado
+- ¿Qué hace?: Nodo de Telegram. Manda el mensaje de advertencia del Nodo 47 al grupo de operaciones.
+
+NODO 61: Cancelacion eliminada con exito de bloque pending
+- ¿Qué hace?: Nodo de Telegram. Manda el mensaje de éxito del Nodo 40 al chat, informando que un asiento quedó libre en un tour.
+
+NODO 62: Cancelación con menos de 24h de antelación
+- ¿Qué hace?: Nodo de Telegram. Manda la alerta roja del Nodo 50 al chat advirtiendo sobre pérdidas de dinero o guías que hay que cancelar con urgencia.
+
+NODO 65: Aviso cancelacion no hecha por no encontrar booking id de reserva
+- ¿Qué hace?: Nodo de Telegram. Avisa si alguien canceló en Bókun pero en el Excel de operaciones nunca existió esa reserva (alerta de desajuste contable).
+
+NODO 66: Logs cancelaciones no encontradas
+- ¿Qué hace?: Aparte de avisar por Telegram, este nodo usa Google Sheets para guardar en un archivo de "Auditoría" las cancelaciones "fantasma" que no cuadraron, para que nadie se olvide de revisarlas a fin de mes.
+
+========================================================================
+FIN DEL DOCUMENTO TÉCNICO COMPLETO
+========================================================================

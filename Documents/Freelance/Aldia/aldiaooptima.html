@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aldia Óptima - Metodología de Inteligencia Artificial</title>
+
+  <!-- Fuente moderna (Inter) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Preconnect Calendly para carga rápida -->
+  <link rel="preconnect" href="https://calendly.com">
+  <link rel="preconnect" href="https://assets.calendly.com">
+  <link rel="dns-prefetch" href="https://calendly.com">
+  <link rel="dns-prefetch" href="https://assets.calendly.com">
+  <link rel="preload" href="https://assets.calendly.com/assets/external/widget.js" as="script">
+  <link rel="preload" href="./assets/chicossudadera.png" as="image" fetchpriority="high">
+  
+  <!-- Estilos -->
+  <link rel="stylesheet" href="./styles/style.css">
+  <link rel="stylesheet" href="./styles/preload.css">
+  <style>
+    /* Navbar solo en la zona blanca (izquierda) */
+    .navbar {
+      width: 50%;
+      justify-content: flex-start;
+      display: flex;
+    }
+
+    .nav-container {
+      justify-content: flex-start;
+      margin-left: 80px;
+      margin-top: 30px;
+      max-width: none;
+    }
+
+    /* Estilos Booking (Calendly) */
+    .booking-section {
+      padding: var(--section-padding) 5%;
+      background-color: var(--bg-white);
+    }
+
+    .booking-container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+
+    .booking-header {
+      margin-bottom: 4rem;
+      text-align: center;
+    }
+
+    .booking-header h2 {
+      font-size: var(--font-h2);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.03em;
+    }
+
+    .booking-header p {
+      font-size: var(--font-body);
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .booking-section {
+        padding: 4rem 5%;
+      }
+
+      .calendly-inline-widget {
+        height: 600px !important;
+      }
+    }
+
+    /* Estilos para la Card de Realidad Profesional */
+    .optima-real-card {
+      background: white;
+      border-radius: 32px;
+      padding: 3rem;
+      box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      width: 100%;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .optima-card-header h3 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      letter-spacing: -0.04em;
+    }
+
+    .optima-card-header p {
+      font-size: 1.2rem;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    .optima-card-video {
+      position: relative;
+      border-radius: 20px;
+      aspect-ratio: 16/10;
+      background: #f0f0f0;
+      margin-bottom: 1rem;
+    }
+
+    .optima-card-video::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      box-shadow: inset 0 0 60px 30px rgba(0, 0, 0, 0.35);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .optima-card-video img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+    }
+
+    .chat-bubble {
+      position: absolute;
+      background: white;
+      padding: 1rem 1.5rem;
+      border-radius: 100px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 5;
+      white-space: nowrap;
+    }
+
+    .chat-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .chat-icon-user {
+      background: #e8e8e8;
+    }
+
+    .chat-icon-user svg {
+      width: 18px;
+      height: 18px;
+      fill: #555;
+    }
+
+    .chat-icon-aldia {
+      background: white;
+      background-image: url('./assets/logo.png');
+      background-size: 60%;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .chat-user {
+      top: -12%;
+      left: 10%;
+    }
+
+    .chat-aldia {
+      bottom: -12%;
+      right: 5%;
+      background: #0e0e0e;
+      color: white;
+      padding: 1rem 1.6rem;
+    }
+
+    .video-overlay-icon {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 10px;
+      border-radius: 12px;
+      display: flex;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Ajustes móviles */
+    @media (max-width: 768px) {
+
+      /* Navbar: full width on mobile */
+      .navbar {
+        width: 100% !important;
+      }
+
+      .nav-container {
+        margin-left: 20px !important;
+        margin-top: 15px !important;
+      }
+
+      /* Hero intro: stack vertically */
+      .optima-intro-full {
+        margin-bottom: 4rem !important;
+      }
+
+      .optima-intro-content {
+        padding: 40px 6% !important;
+      }
+
+      .optima-main-title {
+        font-size: clamp(2rem, 7vw, 2.8rem) !important;
+      }
+
+      .optima-main-desc {
+        font-size: 0.95rem !important;
+        max-width: 100% !important;
+      }
+
+      /* Card de Realidad Profesional */
+      .optima-real-card {
+        padding: 2.5rem 8% !important;
+        border-radius: 0 !important; /* Sin bordes redondeados en los lados para ser full-width */
+        width: 100% !important;
+        border-left: none;
+        border-right: none;
+        gap: 1.5rem;
+      }
+
+      .optima-card-header h3 {
+        font-size: 1.5rem;
+      }
+
+      .optima-card-header p {
+        font-size: 1rem;
+      }
+
+      .optima-logic {
+        padding: 0 !important; /* Quitamos padding lateral para que la foto ocupe todo el ancho */
+        gap: 3rem !important;
+        margin-bottom: 5rem !important;
+      }
+
+      .optima-logic-text {
+        padding: 0 8%; /* Mantenemos el padding solo para el texto de abajo */
+      }
+
+      .optima-card-video {
+        aspect-ratio: 16/12;
+        margin-top: 1rem !important;
+      }
+
+      .optima-card-video::after {
+        box-shadow: inset 0 0 40px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .optima-step-num {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 0.8rem !important;
+      }
+
+      /* Ocultar burbujas en móvil */
+      .chat-bubble {
+        display: none !important;
+      }
+
+      /* Roadmap Mobile Padding */
+      .optima-timeline-section {
+        padding: 4rem 10% !important;
+      }
+
+      .optima-step {
+        margin-bottom: 4rem !important;
+      }
+
+      .mobile-hide {
+        display: none !important;
+      }
+
+      /* Booking / Calendly */
+      .booking-section {
+        padding: 4rem 5%;
+      }
+
+      .booking-header {
+        margin-bottom: 2rem;
+      }
+
+      .booking-header h2 {
+        font-size: 1.8rem !important;
+      }
+
+      .booking-header p {
+        font-size: 0.9rem;
+      }
+
+      .calendly-inline-widget {
+        height: 600px !important;
+      }
+
+      /* FAQ */
+      .faq-container {
+        flex-direction: column !important;
+        gap: 2rem !important;
+      }
+
+      .faq-left {
+        text-align: left !important;
+      }
+
+      .faq-title {
+        font-size: 1.6rem !important;
+      }
+
+      .faq-question h3 {
+        font-size: 0.88rem !important;
+      }
+
+      .faq-answer {
+        font-size: 0.85rem !important;
+      }
+
+      /* Footer */
+      .main-footer {
+        padding: 3rem 5% !important;
+      }
+
+      @media (max-width: 768px) {
+        #aldia-chat-window {
+          width: calc(100vw - 2rem);
+          height: 60vh;
+          right: 1rem;
+          bottom: 5.5rem;
+        }
+        #aldia-chat-trigger {
+          bottom: 1.5rem;
+          right: 1.5rem;
+        }
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Global Preloader -->
+  <div class="aldia-preloader" id="aldiaPreloader">
+    <div class="preload-brand">
+      <span class="preload-text">aldia</span><div class="preload-dot"></div>
+    </div>
+  </div>
+
+  <!-- ========== NAVBAR ========== -->
+  <header class="navbar">
+    <nav class="nav-container">
+      <ul class="nav-links">
+        <li>
+          <a href="index.html" class="nav-logo-link">
+            <img src="./assets/logo.png" alt="Aldia Logo" class="nav-logo">
+          </a>
+        </li>
+        <li><a href="index.html">Inicio</a></li>
+        <li class="has-dropdown">
+          <a href="servicios.html">Servicios</a>
+          <div class="dropdown-menu">
+            <span class="dropdown-title">Nuestros Servicios</span>
+            <ul class="dropdown-list">
+              <li><a href="servicios.html#diagnostico" class="dropdown-item">Diagnóstico Personalizado
+                  <span>→</span></a></li>
+              <li><a href="servicios.html#automatizacion" class="dropdown-item">Automatización de Procesos
+                  <span>→</span></a></li>
+              <li><a href="servicios.html#bots" class="dropdown-item">Bots con IA <span>→</span></a></li>
+              <li><a href="servicios.html#corporativa" class="dropdown-item">Web Corporativa <span>→</span></a></li>
+              <li><a href="servicios.html#powerapps" class="dropdown-item">Microsoft Power Platform <span>→</span></a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li><a href="aldiaooptima.html" class="active">Aldia Óptima</a></li>
+        <li><a href="index.html#contact-section">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ========== MOBILE NAV ========== -->
+  <button class="mobile-toggle" id="menuToggle">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </button>
+
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-overlay-header">
+      <img src="./assets/logo.png" alt="Aldia Logo" class="mobile-logo">
+      <button class="close-mobile-menu" id="closeMenu">&times;</button>
+    </div>
+    <nav>
+      <ul class="mobile-nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="aldiaooptima.html" class="active">Aldia Óptima</a></li>
+        <li><a href="index.html#contact-section">Contacto</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    const closeMenu = document.getElementById('closeMenu');
+
+    menuToggle.addEventListener('click', () => {
+      mobileOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+
+    closeMenu.addEventListener('click', () => {
+      mobileOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+  </script>
+
+  <!-- ========== HERO ÓPTIMA ========== -->
+  <section class="optima-section">
+    <!-- 1. Intro Split (Copia exacta de Hero index, pero invertido 50/50) -->
+    <div class="optima-intro-full">
+      <div class="optima-intro-content reveal-up">
+        <span class="optima-hero-tag">Metodología de Inteligencia Artificial</span>
+        <h2 class="optima-main-title">Aldia Óptima.<br>Escalabilidad Real.</h2>
+        <p class="optima-main-desc">No instalamos soluciones aisladas. Implementamos una metodología integral de
+          inteligencia artificial diseñada para que tu operativa sea el motor de tu rentabilidad y crecimiento.</p>
+        <a href="#calendly" class="optima-hero-btn">Agendar diagnóstico</a>
+      </div>
+      <div class="optima-intro-visual">
+        <img src="./assets/chicossudadera.png" alt="Equipo Aldia Óptima" fetchpriority="high" loading="eager">
+      </div>
+    </div>
+
+    <div class="optima-container">
+      <!-- 3. Philosophy Split (Optimized) -->
+      <div class="optima-logic">
+        <div class="optima-logic-visuals reveal-up">
+          <!-- Card Visual (Realidad Profesional) -->
+          <div class="optima-real-card">
+            <div class="optima-card-header">
+              <h3>Partimos de tu realidad profesional</h3>
+              <p>Analizamos tu punto de partida y hacia dónde quieres evolucionar.</p>
+            </div>
+
+            <!-- Foto de Aldia Óptima (Diagnóstico) -->
+
+
+            <div class="optima-card-video" style="margin-top: 2rem;">
+              <img src="./assets/video_call_diagnostico.png" alt="Diagnóstico Aldia">
+              <div class="chat-bubble chat-user">
+                <div class="chat-icon chat-icon-user">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path
+                      d="M10 2a4 4 0 100 8 4 4 0 000-8zM7 6a3 3 0 116 0 3 3 0 01-6 0zm-2 8a2 2 0 00-2 2v1c0 1.691 1.283 3 3.5 3h7c2.217 0 3.5-1.309 3.5-3v-1a2 2 0 00-2-2H5z" />
+                  </svg>
+                </div>
+                <span>No tengo claro por dónde empezar.</span>
+              </div>
+              <div class="chat-bubble chat-aldia">
+                <div class="chat-icon chat-icon-user">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path
+                      d="M10 2a4 4 0 100 8 4 4 0 000-8zM7 6a3 3 0 116 0 3 3 0 01-6 0zm-2 8a2 2 0 00-2 2v1c0 1.691 1.283 3 3.5 3h7c2.217 0 3.5-1.309 3.5-3v-1a2 2 0 00-2-2H5z" />
+                  </svg>
+                </div>
+                <span>Perfecto, cuéntanos tu punto de partida.</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="optima-logic-text reveal-up delay-1">
+          <span class="optima-tag">Filosofía Operativa</span>
+          <h2>Inyectamos inteligencia donde otros solo ven procesos.</h2>
+          <p>Aldia no acepta las limitaciones de la operativa tradicional. Estamos aquí para rediseñar las reglas de tu
+            operativa, convirtiendo infraestructuras fragmentadas en sistemas de alto rendimiento capaces de derribar
+            cualquier techo de cristal.</p>
+          <p class="mobile-hide">Primero arquitectura, después tecnología. Automatizar el caos es el error más caro que un directivo puede
+            cometer. Nuestra ingeniería transforma tu flujo de trabajo en un activo de rentabilidad: un motor que escala
+            tus resultados sin disparar tus costes fijos.</p>
+        </div>
+      </div>
+
+      <!-- 4. Timeline Process (Expanded & Authoritative) -->
+      <div class="optima-timeline-section">
+        <div class="optima-timeline-header reveal-up">
+          <span class="optima-tag">Metodología Óptima</span>
+          <h2>Un Roadmap de claridad absoluta para tu escalado</h2>
+        </div>
+
+        <div class="optima-timeline-container">
+          <div class="optima-timeline-line"></div>
+
+          <!-- Phase 1 -->
+          <div class="optima-step reveal-up">
+            <span class="optima-step-num">01</span>
+            <div class="optima-step-content">
+              <h3>Auditoría y Modelado BPMN</h3>
+              <p>Hacemos visible la realidad operativa de tu negocio para detectar el caos real en cualquier nivel de la
+                organización.</p>
+              <ul class="optima-step-list">
+                <li>Auditoría técnica de workflows en Marketing, Ventas, Operaciones y Administración.</li>
+                <li>Modelado visual bajo estándares BPMN 2.0 para una comprensión total de los flujos de información.
+                </li>
+                <li>Detección de puntos de fricción y dependencias humanas críticas en toda tu estructura corporativa.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Phase 2 -->
+          <div class="optima-step reveal-up">
+            <span class="optima-step-num">02</span>
+            <div class="optima-step-content">
+              <h3>Consultoría de Eficiencia</h3>
+              <p>Preparamos el terreno para la tecnología. Antes de automatizar, optimizamos la lógica para asegurar que
+                el sistema sea ligero.</p>
+              <ul class="optima-step-list">
+                <li>Reingeniería de procesos para eliminar pasos redundantes, duplicidades y fricción innecesaria.</li>
+                <li>Auditoría de tu stack tecnológico actual buscando reducciones de costes y optimización de licencias.
+                </li>
+                <li>Identificación de oportunidades reales de integración de IA con sentido de negocio y retorno
+                  directo.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Phase 3 -->
+          <div class="optima-step reveal-up">
+            <span class="optima-step-num">03</span>
+            <div class="optima-step-content">
+              <h3>Seguridad y Datos</h3>
+              <p>Blindamos tu activo más valioso. Evaluamos cada oportunidad bajo el prisma de la seguridad total y el
+                cumplimiento.</p>
+              <ul class="optima-step-list">
+                <li>Análisis profundo de accesos, permisos y trazabilidad de tus datos empresariales más sensibles.</li>
+                <li>Evaluación de riesgos técnicos en la integración de modelos de IA y protección de propiedad
+                  intelectual.</li>
+                <li>Validación de seguridad arquitectónica para asegurar que cada flujo sea inexpugnable ante el
+                  crecimiento.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Phase 4 -->
+          <div class="optima-step reveal-up">
+            <span class="optima-step-num">04</span>
+            <div class="optima-step-content">
+              <h3>Ingeniería de Ecosistema IA</h3>
+              <p>Diseñamos el cerebro digital. No instalamos herramientas, creamos una arquitectura de agentes
+                coordinados y eficientes.</p>
+              <ul class="optima-step-list">
+                <li>Diseño de arquitectura de Agentes y Bots especializados para cada departamento estratégico
+                  analizado.</li>
+                <li>Selección crítica de modelos (GPT, Claude, Llama) optimizada por capacidad, latencia y coste real.
+                </li>
+                <li>Definición de integraciones API y orquestación de flujos inteligentes que eliminan la carga
+                  operativa.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Phase 5 -->
+          <div class="optima-step reveal-up">
+            <span class="optima-step-num">05</span>
+            <div class="optima-step-content">
+              <h3>Roadmap de Escalado</h3>
+              <p>Entregamos el plan maestro. Una hoja de ruta definitiva para transformar tu empresa en un motor de
+                rentabilidad.</p>
+              <ul class="optima-step-list">
+                <li>Priorización de proyectos basada en el impacto real de facturación y ahorro operativo inmediato.
+                </li>
+                <li>Definición del orden correcto de ejecución técnica para evitar errores caros y cuellos de botella.
+                </li>
+                <li>Guía de escalado continuo para garantizar que la tecnología soporte el crecimiento futuro sin
+                  límites.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION: BOOKING (CALENDLY) ========== -->
+  <section class="booking-section reveal-up" id="calendly">
+    <div class="booking-container">
+      <div class="booking-header">
+        <span class="optima-tag">Agenda tu sesión</span>
+        <h2>Reserva tu diagnóstico estratégico</h2>
+        <p>En esta sesión estratégica te explicaremos a fondo la metodología Aldia Óptima y definiremos los pasos para
+          realizar tu diagnóstico personalizado.</p>
+      </div>
+
+      <!-- Principio del widget integrado de Calendly -->
+      <div class="calendly-wrapper" style="position: relative; min-height: 700px;">
+        <!-- Skeleton loader -->
+        <div class="calendly-skeleton" id="calendly-skeleton"
+          style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem; background: #fafafa; border-radius: 12px;">
+          <div
+            style="width: 60px; height: 60px; border: 3px solid #e5e5e5; border-top-color: #333; border-radius: 50%; animation: spin 0.8s linear infinite;">
+          </div>
+          <p style="color: #999; font-size: 0.95rem; font-weight: 500;">Cargando calendario...</p>
+        </div>
+        <style>
+          @keyframes spin {
+            to {
+              transform: rotate(360deg);
+            }
+          }
+        </style>
+        <div class="calendly-inline-widget" data-url="https://calendly.com/aldiasoftware/45min"
+          style="min-width:320px;height:700px; border: none; border-radius: 12px; overflow: hidden;">
+        </div>
+      </div>
+      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async
+        onload="setTimeout(function(){ var s = document.getElementById('calendly-skeleton'); if(s) s.style.display='none'; }, 1500);"></script>
+      <!-- Final del widget integrado de Calendly -->
+    </div>
+  </section>
+
+  <!-- ========== SECTION: FAQ ========== -->
+  <section class="faq-section reveal-up">
+    <div class="faq-container">
+      <div class="faq-left">
+        <p class="faq-tag">Metodología Óptima</p>
+        <h2 class="faq-title">Preguntas frecuentes<br>sobre el Diagnóstico</h2>
+        <a href="#calendly" class="faq-btn">Agendar mi sistema</a>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>¿Por qué el diagnóstico es el primer paso obligatorio?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            Implementar IA sobre procesos desordenados es el error más caro para un directivo. El diagnóstico
+            protege tu inversión al asegurar que cada automatización se inyecte sobre una base operativa optimizada
+            y segura.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>¿Qué áreas de mi negocio se analizan exactamente?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            Auditamos las 4 áreas críticas: <strong>Marketing, Ventas, Delivery y Administración</strong>. No
+            dejamos nada al azar para detectar cuellos de botella y oportunidades reales de escalado con IA.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>¿Qué ocurre si ya tengo procesos automatizados?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            Los auditamos bajo el estándar Óptima. Analizamos su eficiencia, coste y seguridad técnica para
+            integrarlos en el nuevo roadmap o sustituirlos si están frenando tu crecimiento.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>¿Qué recibo al finalizar esta fase de Diagnóstico?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            Recibes un producto cerrado de claridad: el modelado BPMN 2.0 de tus procesos, una consultoría de
+            eficiencia operativa, una auditoría técnica de ciberseguridad, el diseño de arquitectura de tu
+            ecosistema de IA y el <strong>Roadmap estratégico de escalado</strong> a medida.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>¿El diagnóstico incluye la programación de los sistemas?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            No. El diagnóstico es arquitectura y consultoría técnica. Es lo que nos permite diseñar exactamente qué
+            bots y automatizaciones necesitas. La implementación técnica es la fase siguiente, que escala sobre esta
+            base sólida.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>¿Cómo funciona la bonificación del diagnóstico?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            Si decides avanzar con nosotros para ejecutar el Roadmap en los 30 días posteriores a la entrega,
+            <strong>descontamos el 100% del importe del diagnóstico</strong> del presupuesto de implementación. El
+            diagnóstico acaba siendo una inversión a coste cero.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // FAQ Accordion
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+        if (!isActive) item.classList.add('active');
+      });
+    });
+  </script>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div class="footer-middle">
+        <div class="footer-logo">
+          <img src="./assets/logo.png" alt="Aldia Logo">
+        </div>
+        <div class="footer-copyright">
+          © Aldia Copyright 2026
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  </footer>
+
+  <!-- Aldia Global Components -->
+  <link rel="stylesheet" href="./styles/chat.css">
+  <script src="./scripts/chat.js"></script>
+  <script src="./scripts/preload.js"></script>
+
+  <script>
+    // Intersection Observer para las animaciones de scroll
+    document.addEventListener("DOMContentLoaded", function () {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
+    });
+  </script>
+
+</body>
+
+</html>

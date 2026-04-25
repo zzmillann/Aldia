@@ -1,0 +1,2385 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aldia - Servicios</title>
+
+  <!-- Fuente moderna (Inter) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="./styles/style.css">
+  <link rel="stylesheet" href="./styles/preload.css">
+
+
+</head>
+
+<body>
+
+  <!-- Global Preloader -->
+  <div class="aldia-preloader" id="aldiaPreloader">
+    <div class="preload-brand">
+      <span class="preload-text">aldia</span><div class="preload-dot"></div>
+    </div>
+  </div>
+
+  <!-- ========== NAVBAR ========== -->
+  <header class="navbar">
+    <nav class="nav-container-servicios">
+      <!-- Versión Escritorio: Píldora de navegación -->
+      <ul class="nav-links">
+        <li>
+          <a href="index.html" class="nav-logo-link">
+            <img src="./assets/logo.png" alt="Aldia Logo" class="nav-logo">
+          </a>
+        </li>
+        <li><a href="index.html">Inicio</a></li>
+        <li class="has-dropdown">
+          <a href="servicios.html" class="active">Servicios </a>
+          <div class="dropdown-menu">
+            <span class="dropdown-title">Nuestros Servicios</span>
+            <ul class="dropdown-list">
+              <li><a href="servicios.html#diagnostico" class="dropdown-item">Diagnóstico Personalizado</a></li>
+              <li><a href="servicios.html#automatizacion" class="dropdown-item">Automatización de Procesos</a></li>
+              <li><a href="servicios.html#bots" class="dropdown-item">Bots con IA</a></li>
+              <li><a href="servicios.html#corporativa" class="dropdown-item">Web Corporativa</a></li>
+              <li><a href="servicios.html#powerapps" class="dropdown-item">Microsoft Power Platform</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a href="aldiaooptima.html">Aldia Óptima</a></li>
+        <li><a href="index.html#contact-section">Contacto</a></li>
+      </ul>
+
+    </nav>
+  </header>
+
+  <!-- ========== MOBILE NAV ========== -->
+  <button class="mobile-toggle" id="menuToggle">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </button>
+
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-overlay-header">
+      <img src="./assets/logo.png" alt="Aldia Logo" class="mobile-logo">
+      <button class="close-mobile-menu" id="closeMenu">&times;</button>
+    </div>
+    <nav>
+      <ul class="mobile-nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="servicios.html" class="active">Servicios</a></li>
+        <li><a href="aldiaooptima.html">Aldia Óptima</a></li>
+        <li><a href="index.html#contact-section">Contacto</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    const closeMenu = document.getElementById('closeMenu');
+
+    menuToggle.addEventListener('click', () => {
+      mobileOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+
+    closeMenu.addEventListener('click', () => {
+      mobileOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+  </script>
+
+  <!-- ========== HERO SERVICIOS (Con el globo) ========== -->
+  <section class="hero-servicios">
+    <div class="hero-servicios-content reveal-up">
+      <h1>Tu negocio no necesita más horas.<br>Necesita inteligencia.</h1>
+      <p>Soluciones tecnológicas y sistemas inteligentes diseñados para optimizar cada área de tu negocio y escalar sin
+        límites.</p>
+    </div>
+
+    <!-- El lienzo para el globo interactivo -->
+    <div class="globe-wrapper">
+      <canvas id="dotGlobeCanvas" class="hero-globe__canvas"></canvas>
+    </div>
+
+    <!-- Floating Action Button (Solo Móvil) -->
+    <a href="index.html#contact-section" class="m-fab" aria-label="Contactar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+      </svg>
+    </a>
+  </section>
+
+  <!-- Barra de confianza negra bajo el globo -->
+  <div class="trust-bar">
+    <div class="trust-bar-inner">
+      <p>¿Listo para llevar tu negocio al siguiente nivel?<br>Descubre cómo la IA puede trabajar para ti.</p>
+      <a href="index.html#contact-section" class="btn-trust">Contactar ahora →</a>
+    </div>
+  </div>
+
+  <!-- ========== SECTION: QUÉ PUEDES AUTOMATIZAR (Estilo Imagen) ========== -->
+  <section class="auto-servicios-section">
+    <div class="auto-servicios-container">
+
+      <!-- Lado Izquierdo: Lista de beneficios con iconos (Dinámica) -->
+      <div class="auto-servicios-left">
+        <h2 class="auto-title reveal-up" id="auto-title">Diagnóstico Personalizado</h2>
+
+        <ul class="benefit-list reveal-up" id="service-benefit-list">
+          <!-- Se rellena vía JS -->
+        </ul>
+
+        <!-- Imagen del workflow (Mockup) -->
+        <div class="workflow-mockup-wrapper reveal-up" id="workflow-visual">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000"
+            alt="Workflow Aldia" class="workflow-image">
+        </div>
+
+        <!-- Visual de Móvil para Diagnóstico -->
+        <div id="mobile-visual" class="reveal-up" style="display: none;"></div>
+
+        <!-- Componente de Órbita Power Platform (Dinámico) -->
+        <div class="orbit-wrapper reveal-up" id="orbit-visual" style="display: none;">
+          <div class="orbit-center">
+            <img src="./assets/logos/microsoft.jpg" alt="Microsoft">
+          </div>
+
+          <!-- Única Órbita -->
+          <div class="orbit-ring ring-1"></div>
+          <div class="orbit-container">
+            <div class="orbit-item p-1"><img src="./assets/logos/power-apps.png" alt="Power Apps"></div>
+            <div class="orbit-item p-2"><img src="./assets/logos/power-automate.jpg" alt="Power Automate"></div>
+            <div class="orbit-item p-3"><img src="./assets/logos/power-pages.svg" alt="Power Pages"></div>
+            <div class="orbit-item p-4"><img src="./assets/logos/copilot-studio.webp" alt="Copilot Studio"></div>
+            <div class="orbit-item p-5"><img src="./assets/logos/dataverse.jpg" alt="Dataverse"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lado Derecho: Sidebar de Servicios -->
+      <div class="auto-servicios-right reveal-up delay-1">
+        <div class="services-sidebar-card">
+          <h3>Nuestros Servicios</h3>
+          <ul class="sidebar-links" id="sidebar-links">
+            <li>
+              <a data-service="diagnostico" class="active">
+                <span>Diagnóstico Personalizado</span>
+                <span class="arrow-up-right">↗</span>
+              </a>
+            </li>
+            <li>
+              <a data-service="seo">
+                <span>Mejora de SEO (Posicionamiento en buscadores)</span>
+                <span class="arrow-up-right">↗</span>
+              </a>
+            </li>
+            <li>
+              <a data-service="bbdd">
+                <span>Generación de bases de datos B2B</span>
+                <span class="arrow-up-right">↗</span>
+              </a>
+            </li>
+            <li>
+              <a data-service="landing">
+                <span>Landing Pages</span>
+                <span class="arrow-up-right">↗</span>
+              </a>
+            </li>
+            <li>
+              <a data-service="corporativa">
+                <span>Web Corporativa</span>
+                <span class="arrow-up-right">↗</span>
+              </a>
+            </li>
+            <li>
+              <a data-service="bots">
+                <span>Bots con IA</span>
+                <span class="arrow-up-right">↗</span>
+              </a>
+            </li>
+            <li>
+              <a data-service="automatizacion">
+                <span>Automatización de Procesos</span>
+                <span class="arrow-up-right">↗</span>
+              </a>
+            </li>
+            <li>
+              <a data-service="integraciones">
+                <span>Integraciones de Sistemas</span>
+                <span class="arrow-up-right">↗</span>
+              </a>
+            </li>
+            <li>
+              <a data-service="powerapps">
+                <span>Microsoft Power Platform</span>
+                <span class="arrow-up-right">↗</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== SECTION: WEB CORPORATIVA - LUXURY SHOWCASE (UPDATED) ========== -->
+  <section class="corporativa-arch-section" id="dynamic-corporativa-section" style="display: none; background: #fff;">
+    <div class="diag-int-container">
+      <div class="diag-int-header reveal-up" style="text-align: center; margin: 0 auto 50px;">
+        <p class="diag-int-tag">Web Corporativa</p>
+        <h2 class="diag-int-title">Tu identidad líder en el<br>mundo digital</h2>
+        <p class="diag-int-subtitle" style="margin: 0 auto;">No es solo una web. Es un ecosistema diseñado para
+          garantizar rendimiento, seguridad y una imagen de marca inalcanzable.</p>
+      </div>
+
+      <div class="corporativa-luxury-grid reveal-up delay-1">
+        <div class="luxury-card">
+          <span class="luxury-icon">✦</span>
+          <h4>Diseño con Clase</h4>
+          <p>Estética minimalista que transmite confianza instantánea desde el primer segundo.</p>
+        </div>
+        <div class="luxury-card">
+          <span class="luxury-icon">⚙</span>
+          <h4>Rendimiento Élite</h4>
+          <p>Carga ultrarrápida y optimización para todos los dispositivos y buscadores.</p>
+        </div>
+        <div class="luxury-card">
+          <span class="luxury-icon">🛡</span>
+          <h4>Seguridad Total</h4>
+          <p>Protección avanzada y escalabilidad para que tu negocio nunca deje de crecer.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION: INTEGRACIONES - CRM SYNC DASHBOARD (REDISEÑO TOTAL) ========== -->
+  <section class="integrations-hub-section" id="dynamic-integraciones-section" style="display: none; background: #fff;">
+    <div class="diag-int-container">
+      <div class="diag-int-header reveal-up" style="text-align: center; margin: 0 auto 50px;">
+        <p class="diag-int-tag">Ecosistema Conectado</p>
+        <h2 class="diag-int-title">Tu CRM en Piloto Automático</h2>
+        <p class="diag-int-subtitle" style="margin: 0 auto;">Visualiza cómo tus herramientas de captación alimentan tu
+          pipeline comercial en tiempo real, sin intervención manual.</p>
+      </div>
+
+      <div class="crm-dashboard reveal-up delay-1">
+        <!-- Panel 1: Inflow (Dark) -->
+        <div class="crm-panel dark">
+          <div class="crm-header">Entrada de Datos</div>
+          <div class="lead-stream" id="crm-inflow">
+            <div class="crm-lead-card">
+              <div class="lead-icon">G</div>
+              <span>Google Maps: Reseña Detectada</span>
+            </div>
+            <div class="crm-lead-card" style="animation-delay: 1.2s;">
+              <div class="lead-icon">L</div>
+              <span>LinkedIn: Nuevo Lead B2B</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 2: Pipeline (Light) -->
+        <div class="crm-panel" style="flex: 2; flex-direction: row; gap: 0;">
+          <div class="crm-column">
+            <div class="crm-header">Clientes Potenciales</div>
+            <div id="status-new">
+              <div class="kanban-card"><strong>Inversiones S.A.</strong> - Pendiente</div>
+              <div class="kanban-card"><strong>Boutique Glam</strong> - Maps Lead</div>
+            </div>
+          </div>
+          <div class="crm-column">
+            <div class="crm-header">Negociación</div>
+            <div id="status-contact">
+              <div class="kanban-card"><strong>Consultora Tech</strong> - Propuesta enviada</div>
+              <div class="kanban-card"><strong>Hotel Royal</strong> - Demo agendada</div>
+            </div>
+          </div>
+          <div class="crm-column">
+            <div class="crm-header">Ventas Ganadas</div>
+            <div id="status-won">
+              <div class="kanban-card" style="border-left: 3px solid #000;"><strong>Aldia Corp</strong> - 15.000€</div>
+              <div class="kanban-card" style="border-left: 3px solid #000;"><strong>InmoGlobal</strong> - 4.500€</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION: BOTS CON IA - ECOSISTEMA INTELIGENTE (UPDATED) ========== -->
+  <section class="power-platform-os" id="dynamic-bots-section" style="display: none; background: #fff;">
+    <div class="diag-int-container">
+      <div class="diag-int-header reveal-up" style="text-align: center; margin: 0 auto 50px;">
+        <p class="diag-int-tag">Agentes Inteligentes</p>
+        <h2 class="diag-int-title">Tu oficina nunca cierra</h2>
+        <p class="diag-int-subtitle" style="margin: 0 auto;">Implementamos cerebros digitales que aprenden de tu negocio
+          y atienden a tus clientes con precisión humana.</p>
+      </div>
+
+      <div class="bots-dynamic-container reveal-up delay-1">
+        <!-- Left Column Info -->
+        <div class="bot-info-column">
+          <div class="bot-info-card">
+            <h5>Disponibilidad 24/7</h5>
+            <p>Atención inmediata en cualquier zona horaria, sin pausas.</p>
+          </div>
+          <div class="bot-info-card">
+            <h5>Multi-idioma</h5>
+            <p>Habla con tus clientes en su propio idioma de forma natural.</p>
+          </div>
+        </div>
+
+        <!-- Central Chat -->
+        <div class="bots-ai-visual">
+          <div class="ai-bubble user">¿Cómo puedo mejorar mis ventas?</div>
+          <div class="ai-bubble">Analizando datos... He detectado 3 cuellos de botella en tu proceso de checkout.
+            ¿Quieres que implemente una automatización de rescate ahora?</div>
+          <div class="ai-bubble user">Sí, por favor.</div>
+          <div class="ai-bubble">Proceso completado. Sistema de recuperación activado. He ahorrado 12 horas de trabajo
+            manual hoy. ⚡</div>
+        </div>
+
+        <!-- Right Column Info -->
+        <div class="bot-info-column">
+          <div class="bot-info-card">
+            <h5>Cierre de Ventas</h5>
+            <p>Capacidad para procesar pedidos y reservas directamente.</p>
+          </div>
+          <div class="bot-info-card">
+            <h5>Aprendizaje Continuo</h5>
+            <p>El bot mejora con cada interacción gracias a nuestra IA.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION: POWER PLATFORM - BUSINESS OS (NEW) ========== -->
+  <section class="power-platform-os" id="dynamic-powerapps-section" style="display: none; background: #fff;">
+    <div class="diag-int-container">
+      <div class="diag-int-header reveal-up">
+        <p class="diag-int-tag">Microsoft Power Platform</p>
+        <h2 class="diag-int-title">El sistema operativo<br>de tu eficiencia</h2>
+        <p class="diag-int-subtitle">Herramientas de nivel enterprise adaptadas al tamaño real de tu negocio. Control
+          absoluto bajo el paraguas de Microsoft.</p>
+      </div>
+
+      <div class="os-container reveal-up delay-1">
+        <div class="os-header">
+          <div class="os-dot red"></div>
+          <div class="os-dot yellow"></div>
+          <div class="os-dot green"></div>
+          <div class="os-title-bar">Aldia Business Engine v2.0</div>
+        </div>
+        <div class="os-content">
+          <div class="os-sidebar">
+            <div class="os-nav-item active" data-os="apps">Power Apps</div>
+            <div class="os-nav-item" data-os="automate">Power Automate</div>
+            <div class="os-nav-item" data-os="bi">Power BI</div>
+            <div class="os-nav-item" data-os="copilot">Copilot Studio</div>
+          </div>
+          <div class="os-view" id="os-view-content">
+            <h3 id="os-title">Power Apps</h3>
+            <p id="os-desc">Aplicaciones móviles y de escritorio personalizadas que se conectan a tus datos. Digitaliza
+              formularios, inventarios y procesos de campo en tiempo récord.</p>
+            <a href="index.html#contact-section" class="os-action-btn">Solicitar Demo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION: ¿POR QUÉ INVERTIR EN UX/UI? ========== -->
+  <section class="uxui-section" id="dynamic-uxui-section" style="display: none; background: #fff;">
+    <div class="uxui-container">
+
+      <!-- Cabecera -->
+      <div class="uxui-header reveal-up">
+        <p class="uxui-tag">Diseño Web</p>
+        <h2 class="uxui-title">¿Por qué invertir en un<br>buen diseño web con UX/UI?</h2>
+        <p class="uxui-subtitle">Porque es la forma más eficaz de convertir visitas en resultados.</p>
+      </div>
+
+      <!-- Mini tarjetas de beneficios -->
+      <div class="uxui-cards">
+
+        <div class="uxui-card">
+          <div class="uxui-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 1.5a8.5 8.5 0 1 1 0 17 8.5 8.5 0 0 1 0-17zM11 7v5.25l4.064 2.437a.75.75 0 0 1-.764 1.282l-4.5-2.7A.75.75 0 0 1 9.5 12.5V7a.75.75 0 0 1 1.5 0z"
+                fill="currentColor" />
+            </svg>
+          </div>
+          <h4>Mejor experiencia de usuario</h4>
+          <p>Un diseño intuitivo reduce la fricción y hace que tus visitantes encuentren lo que buscan sin esfuerzo.</p>
+        </div>
+
+        <div class="uxui-card">
+          <div class="uxui-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 2.18L19 6.3v4.7c0 4.41-3.08 8.44-7 9.68-3.92-1.24-7-5.27-7-9.68V6.3l7-3.12z"
+                fill="currentColor" />
+            </svg>
+          </div>
+          <h4>Transmite profesionalismo</h4>
+          <p>El diseño es tu primera impresión. Una web cuidada genera confianza instantánea en tus clientes
+            potenciales.</p>
+        </div>
+
+        <div class="uxui-card">
+          <div class="uxui-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 2.5a.75.75 0 0 1 .68.441l2.564 5.152 5.64.827a.75.75 0 0 1 .416 1.28l-4.08 4.008.963 5.617a.75.75 0 0 1-1.088.79l-5.093-2.678-5.093 2.678a.75.75 0 0 1-1.089-.79l.964-5.617-4.08-4.008a.75.75 0 0 1 .416-1.28l5.639-.827L11.32 2.94a.75.75 0 0 1 .68-.442z"
+                fill="currentColor" />
+            </svg>
+          </div>
+          <h4>Refuerza tu identidad de marca</h4>
+          <p>Coherencia visual en tipografía, colores y estructura que hace tu marca memorable y reconocible.</p>
+        </div>
+
+        <div class="uxui-card">
+          <div class="uxui-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M2.5 19.5a.75.75 0 0 1 .75-.75H21a.75.75 0 0 1 0 1.5H3.25a.75.75 0 0 1-.75-.75zM4.22 14.53a.75.75 0 0 1 0-1.06l5.25-5.25a.75.75 0 0 1 1.06 0l2.72 2.72 5.47-5.47a.75.75 0 1 1 1.06 1.06l-6 6a.75.75 0 0 1-1.06 0L10 9.81l-4.72 4.72a.75.75 0 0 1-1.06 0z"
+                fill="currentColor" />
+            </svg>
+          </div>
+          <h4>Más conversiones</h4>
+          <p>Cada elemento está pensado para guiar al usuario hacia la acción: contactar, comprar o reservar.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== SECTION: ¿POR QUÉ INVERTIR EN SEO? (Interactivo JS) ========== -->
+  <section class="seo-interactive-section" id="dynamic-seo-section" style="display: none; background: #fff;">
+    <div class="seo-int-container">
+
+      <!-- Cabecera -->
+      <div class="seo-int-header reveal-up">
+        <p class="seo-int-tag">Crecimiento Orgánico</p>
+        <h2 class="seo-int-title">¿Por qué el SEO es el motor de<br>crecimiento para tu empresa?</h2>
+        <p class="seo-int-subtitle">Domina tu sector y convierte búsquedas orgánicas en clientes de alto valor.</p>
+      </div>
+
+      <!-- Contenido interactivo dividido -->
+      <div class="seo-int-layout reveal-up delay-1">
+
+        <!-- Izquierda: Lista estilo acordeón/tabs -->
+        <div class="seo-int-list">
+          <div class="seo-int-item active" data-index="0">
+            <div class="seo-int-num">01</div>
+            <div class="seo-int-content">
+              <h3>Visibilidad constante sin depender de la publicidad</h3>
+              <div class="seo-int-desc">
+                <p>El SEO te posiciona exactamente donde los decisores buscan soluciones como la tuya. A diferencia de
+                  la publicidad pagada (CPC), tu presencia orgánica es un activo digital que genera tráfico constante
+                  sin depender de inversión diaria.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="seo-int-item" data-index="1">
+            <div class="seo-int-num">02</div>
+            <div class="seo-int-content">
+              <h3>Tráfico de calidad que convierte a nivel B2B</h3>
+              <div class="seo-int-desc">
+                <p>El SEO no busca atraer a todos, sino a los adecuados. Al posicionarte por búsquedas relevantes a tu
+                  nicho, atraes visitantes que ya tienen una intención real, lo que se traduce en mayor conversión
+                  corporativa y fidelización.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="seo-int-item" data-index="2">
+            <div class="seo-int-num">03</div>
+            <div class="seo-int-content">
+              <h3>Credibilidad y posicionamiento de marca líder</h3>
+              <div class="seo-int-desc">
+                <p>Estar bien posicionado en buscadores no solo genera tráfico, la posición transmite confianza
+                  silenciosa. Las marcas que dominan los primeros resultados orgánicos son percibidas como los
+                  referentes absolutos de su sector.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Derecha: JS Visual Canvas -->
+        <div class="seo-int-visual">
+          <canvas id="seoChartCanvas"></canvas>
+
+          <!-- Elementos decorativos de interfaz -->
+          <div class="seo-int-overlay-metrics">
+            <div class="seo-metric-tag" id="sm-tag-1"><span class="smt-dot"></span> Tráfico Predictible</div>
+            <div class="seo-metric-tag" id="sm-tag-2"><span class="smt-dot"></span> Alta Intención</div>
+            <div class="seo-metric-tag" id="sm-tag-3"><span class="smt-dot"></span> Confianza Top 10</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Lógica Interactiva exclusiva de la sección SEO -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const items = document.querySelectorAll('.seo-int-item');
+      const tags = document.querySelectorAll('.seo-metric-tag');
+      let currentIndex = 0;
+
+      // Manejar el paso del ratón sobre los tabs (Hover)
+      items.forEach((item, index) => {
+        item.addEventListener('mouseenter', () => {
+          if (currentIndex === index) return; // Evitar recongelar si ya está activo
+          items.forEach(i => i.classList.remove('active'));
+          item.classList.add('active');
+
+          tags.forEach(t => t.classList.remove('active'));
+          tags[index].classList.add('active');
+
+          currentIndex = index;
+          triggerChartAnimation(index);
+        });
+      });
+
+      // Inicializar el primer tag
+      if (tags.length > 0) tags[0].classList.add('active');
+
+      // Setup del Canvas (Gráfico Premium Elegante)
+      const canvas = document.getElementById('seoChartCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width, height;
+
+      function resize() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        // Aumentar la resolución para pantallas retina
+        const dpr = window.devicePixelRatio || 1;
+        width = rect.width;
+        height = rect.height;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        ctx.scale(dpr, dpr);
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        drawChart(currentIndex, 1);
+      }
+      window.addEventListener('resize', resize);
+
+      // 3 Conjuntos de datos simulando el crecimiento de las 3 fases
+      // Coordenadas en porcentaje (x:0-100, y:0-100) donde y=0 es arriba.
+      const datasets = [
+        // 01: Crecimiento constante lineal orgánico (Constante y seguro)
+        [{ x: 0, y: 90 }, { x: 20, y: 75 }, { x: 40, y: 65 }, { x: 60, y: 50 }, { x: 80, y: 35 }, { x: 100, y: 15 }],
+        // 02: Calidad que convierte (Curva exponencial por la conversión térmica)
+        [{ x: 0, y: 95 }, { x: 30, y: 90 }, { x: 50, y: 75 }, { x: 70, y: 45 }, { x: 85, y: 20 }, { x: 100, y: 5 }],
+        // 03: Autoridad (Dominancia en escalones altos / Liderazgo)
+        [{ x: 0, y: 60 }, { x: 25, y: 50 }, { x: 40, y: 30 }, { x: 60, y: 25 }, { x: 75, y: 10 }, { x: 100, y: 8 }]
+      ];
+
+      let animProgress = 1;
+      let oldDataset = datasets[0];
+      let newDataset = datasets[0];
+      let reqId;
+
+      function triggerChartAnimation(index) {
+        oldDataset = getInterpolatedData();
+        newDataset = datasets[index];
+        animProgress = 0;
+        cancelAnimationFrame(reqId);
+        animate();
+      }
+
+      function getInterpolatedData() {
+        return newDataset.map((pt, i) => {
+          const oldPt = oldDataset[i] || oldDataset[oldDataset.length - 1];
+          // Progress con función de suavizado (ease-out)
+          const ease = 1 - Math.pow(1 - animProgress, 3);
+          return {
+            x: oldPt.x + (pt.x - oldPt.x) * ease,
+            y: oldPt.y + (pt.y - oldPt.y) * ease
+          };
+        });
+      }
+
+      function animate() {
+        animProgress += 0.025; // Velocidad de la transición
+        if (animProgress >= 1) {
+          animProgress = 1;
+        } else {
+          reqId = requestAnimationFrame(animate);
+        }
+        drawChart(currentIndex, animProgress);
+      }
+
+      function drawChart(index, progress) {
+        ctx.clearRect(0, 0, width, height);
+
+        const currentData = getInterpolatedData();
+
+        // 1. Dibujar malla de fondo tecnológica
+        ctx.beginPath();
+        ctx.strokeStyle = "rgba(0,0,0,0.03)";
+        ctx.lineWidth = 1;
+        for (let i = 1; i < 6; i++) {
+          ctx.moveTo(0, height * (i / 6));
+          ctx.lineTo(width, height * (i / 6));
+          ctx.moveTo(width * (i / 6), 0);
+          ctx.lineTo(width * (i / 6), height);
+        }
+        ctx.stroke();
+
+        // 2. Trazar Camino Principal Suavizado
+        ctx.beginPath();
+        currentData.forEach((pt, i) => {
+          let px = (pt.x / 100) * width;
+          let py = (pt.y / 100) * height;
+          if (i === 0) ctx.moveTo(px, py);
+          else {
+            let prev = currentData[i - 1];
+            let prevX = (prev.x / 100) * width;
+            let prevY = (prev.y / 100) * height;
+            let cp1x = prevX + (px - prevX) / 2;
+            ctx.bezierCurveTo(cp1x, prevY, cp1x, py, px, py);
+          }
+        });
+
+        // Guardar el path para el área debajo de la curva
+        let fillPath = new Path2D();
+        currentData.forEach((pt, i) => {
+          let px = (pt.x / 100) * width;
+          let py = (pt.y / 100) * height;
+          if (i === 0) fillPath.moveTo(px, py);
+          else {
+            let prev = currentData[i - 1];
+            let prevX = (prev.x / 100) * width;
+            let prevY = (prev.y / 100) * height;
+            let cp1x = prevX + (px - prevX) / 2;
+            fillPath.bezierCurveTo(cp1x, prevY, cp1x, py, px, py);
+          }
+        });
+        fillPath.lineTo(width, height + 50);
+        fillPath.lineTo(0, height + 50);
+        fillPath.closePath();
+
+        // Dibujar el degrado inferior
+        let fillStyle = ctx.createLinearGradient(0, 0, 0, height);
+        // Efecto premium: un poco más vivo para dar ese look WOW 
+        fillStyle.addColorStop(0, "rgba(14, 14, 14, 0.12)");
+        fillStyle.addColorStop(1, "rgba(14, 14, 14, 0)");
+        ctx.fillStyle = fillStyle;
+        ctx.fill(fillPath);
+
+        // Dibujar la línea sólida final
+        ctx.strokeStyle = "#0e0e0e";
+        ctx.lineWidth = 3;
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.stroke();
+
+        // 3. Dibujar Nodos Intersectantes (Puntos)
+        currentData.forEach(pt => {
+          let px = (pt.x / 100) * width;
+          let py = (pt.y / 100) * height;
+
+          // Resplandor del punto
+          ctx.beginPath();
+          ctx.arc(px, py, 12, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(14, 14, 14, 0.05)";
+          ctx.fill();
+
+          // Centro del punto
+          ctx.beginPath();
+          ctx.arc(px, py, 4, 0, Math.PI * 2);
+          ctx.fillStyle = "#fff";
+          ctx.fill();
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = "#0e0e0e";
+          ctx.stroke();
+        });
+      }
+
+      // Iniciar a los 100ms para asegurar render
+      setTimeout(resize, 100);
+    });
+  </script>
+
+  <!-- ========== SECTION: DIAGNOSTICO INTERACTIVO ========== -->
+  <section class="diag-interactive-section" id="dynamic-diagnostico-section" style="display: none; background: #fff;">
+    <div class="diag-int-container">
+      <div class="diag-int-header reveal-up">
+        <p class="diag-int-tag">Analítica de Sistemas</p>
+        <h2 class="diag-int-title">Radiografía absoluta de tu<br>ecosistema digital</h2>
+        <p class="diag-int-subtitle">Identificamos caídas de rendimiento, cuellos de botella y vulnerabilidades técnicas
+          que frenan tu captación B2B.</p>
+      </div>
+
+      <div class="diag-int-layout reveal-up delay-1">
+
+        <div class="diag-int-list">
+          <div class="diag-int-item active" data-phase="0">
+            <div class="diag-int-icon">
+              <!-- Magnifying glass / search tech -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M10 2a8 8 0 1 0 5.293 14.707l5 5a1 1 0 0 0 1.414-1.414l-5-5A8 8 0 0 0 10 2zm0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12z"
+                  fill="currentColor" />
+              </svg>
+            </div>
+            <div class="diag-int-content">
+              <h3>Auditoría de Procesos y Embudos</h3>
+              <p>Mapeamos el viaje corporativo de tus clientes por los diferentes departamentos: marketing, ventas y
+                soporte. Evaluamos la eficiencia operativa e identificamos tareas manuales ocultas.</p>
+            </div>
+          </div>
+          <div class="diag-int-item" data-phase="1">
+            <div class="diag-int-icon">
+              <!-- Error / Warning / Bottleneck -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"
+                  fill="currentColor" />
+              </svg>
+            </div>
+            <div class="diag-int-content">
+              <h3>Detección Cuellos de Botella</h3>
+              <p>Localizamos puntos de fricción estructural. Desde prospectos valiosos que se enfrían por falta de
+                seguimiento ágil, hasta horas semanales perdidas en administración repetitiva.</p>
+            </div>
+          </div>
+          <div class="diag-int-item" data-phase="2">
+            <div class="diag-int-icon">
+              <!-- Rocket / Check / Optimization -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M18.3 5.71a.996.996 0 0 0-1.41 0L9 13.59 7.11 11.7a.996.996 0 1 0-1.41 1.41l2.59 2.59c.39.39 1.02.39 1.41 0L19.7 6.41a.996.996 0 0 0 0-1.41z"
+                  fill="currentColor" />
+              </svg>
+            </div>
+            <div class="diag-int-content">
+              <h3>Estrategia de Automatización B2B</h3>
+              <p>Diseñamos un sistema integrado en torno a tu CRM y atención al cliente. Un plan para transformar tareas
+                lentas en procesos automáticos operando de forma predecible.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="diag-int-visual">
+          <!-- System Dashboard Interface -->
+          <div class="diag-dashboard">
+            <!-- Elementos decorativos bg limitados a la pantalla -->
+            <div class="diag-bg-scan"></div>
+            <div class="diag-laser" id="diag-laser-line"></div>
+
+            <div class="diag-dash-header">
+              <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+              <div class="diag-dash-title">Panel de Eficiencia Operativa</div>
+            </div>
+            <div class="diag-dash-body">
+
+              <div class="diag-score-widget">
+                <svg viewBox="0 0 100 100" class="diag-circular-chart">
+                  <path class="circle-bg" d="M50 10 a 40 40 0 0 1 0 80 a 40 40 0 0 1 0 -80" />
+                  <path class="circle" id="diag-score-path" stroke-dasharray="251.2" stroke-dashoffset="251.2"
+                    d="M50 10 a 40 40 0 0 1 0 80 a 40 40 0 0 1 0 -80" />
+                </svg>
+                <div class="diag-score-info">
+                  <div class="diag-score-number" id="diag-score-val">0</div>
+                  <div class="diag-score-label" id="diag-score-lbl">Cargando módulos...</div>
+                </div>
+              </div>
+
+              <div class="diag-logs" id="diag-log-container">
+                <!-- Logs injected via JS -->
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Lógica Interactiva Diagnóstico -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const dItems = document.querySelectorAll('.diag-int-item');
+      const dScoreVal = document.getElementById('diag-score-val');
+      const dScoreLbl = document.getElementById('diag-score-lbl');
+      const dScorePath = document.getElementById('diag-score-path');
+      const dLogContainer = document.getElementById('diag-log-container');
+      const dLaser = document.getElementById('diag-laser-line');
+
+      let currentPhase = 0;
+      let counterInterval;
+
+      // Variables de configuración de las 3 fases
+      const phasesData = [
+        {
+          score: 18,
+          color: '#000',
+          label: 'EVALUANDO EFICIENCIA... ALDÍA AI ENGAGED',
+          logs: [
+            { t: 'Analizando ciclo de vida del prospecto comercial...', c: 'ok' },
+            { t: 'Mapeando integraciones (CRM, ERP, Bases de datos)...', c: 'ok' },
+            { t: 'Calculando tiempos de respuesta promedio...', c: 'warn' },
+            { t: 'Métricas de coste operacional detectadas.', c: 'warn' }
+          ]
+        },
+        {
+          score: 42,
+          color: '#000',
+          label: 'DETECTANDO FUGAS E INEFICIENCIAS',
+          logs: [
+            { t: 'Pérdida crítica de leads detectada en etapa de propuesta.', c: 'crit' },
+            { t: 'Sobrecarga manual severa en departamentos operativos.', c: 'crit' },
+            { t: 'Desconexión de datos entre Marketing y Ventas hallada.', c: 'crit' },
+            { t: 'Coste de oportunidad elevado por falta de automatización.', c: 'crit' }
+          ]
+        },
+        {
+          score: 100,
+          color: '#000',
+          label: 'OPTIMIZACIÓN MÁXIMA ALCANZADA',
+          logs: [
+            { t: 'Lead Scoring automático implementado y validado.', c: 'ok' },
+            { t: 'Sincronización total de CRM activa y en tiempo real.', c: 'ok' },
+            { t: 'Agentes de IA gestionan consultas recurrentes con éxito.', c: 'ok' },
+          ]
+        }
+      ];
+
+      function renderPhase(index) {
+        clearInterval(counterInterval);
+        const data = phasesData[index];
+
+        // Actualizar UI activa
+        dItems.forEach(i => i.classList.remove('active'));
+        dItems[index].classList.add('active');
+
+        // Color del path y laser
+        dScorePath.style.stroke = data.color;
+        if (index === 1) dLaser.classList.add('crit'); else dLaser.classList.remove('crit');
+
+        // Offset de circulo - (251.2 es el maximo = 0%)
+        let targetOffset = 251.2 - (251.2 * data.score / 100);
+        dScorePath.style.strokeDashoffset = targetOffset;
+
+        // Label
+        dScoreLbl.textContent = data.label;
+        dScoreLbl.style.color = data.color;
+
+        // Animar Numero (Efecto contador tecnológico)
+        let currentDisplay = parseInt(dScoreVal.textContent) || 0;
+        let cTarget = data.score;
+        let step = (cTarget - currentDisplay) / 15;
+        let tick = 0;
+        counterInterval = setInterval(() => {
+          tick++;
+          currentDisplay += step;
+          dScoreVal.textContent = Math.round(currentDisplay);
+          if (tick >= 15) {
+            clearInterval(counterInterval);
+            dScoreVal.textContent = cTarget;
+          }
+        }, 30);
+
+        // Render Logs escalonados (Efecto tipeo de terminal)
+        dLogContainer.innerHTML = '';
+        data.logs.forEach((log, i) => {
+          setTimeout(() => {
+            const p = document.createElement('p');
+            p.className = 'log-line ' + log.c;
+            p.textContent = log.t;
+            dLogContainer.appendChild(p);
+          }, i * 350); // delay progresivo
+        });
+      }
+
+      // Event Listeners (Hover como querías)
+      dItems.forEach((item, index) => {
+        item.addEventListener('mouseenter', () => {
+          if (currentPhase === index) return;
+          currentPhase = index;
+          renderPhase(index);
+        });
+      });
+
+      // Asegurar que si el DOM ya cargó y somos Diagnostico, activamos
+      // Observers solo actúan la primera vez.
+      const obs = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          dLaser.classList.add('active');
+          renderPhase(0); // Ejecutar estado inicial
+          obs.disconnect(); // solo la primera vez
+        }
+      }, { threshold: 0.2 });
+
+      const diagSec = document.getElementById('dynamic-diagnostico-section');
+      if (diagSec) obs.observe(diagSec);
+
+    });
+  </script>
+
+  <!-- ========== SECTION: BBDD B2B INTERACTIVO ========== -->
+  <section class="bbdd-interactive-section diag-interactive-section" id="dynamic-bbdd-section"
+    style="display: none; background: #fff;">
+    <div class="diag-int-container bbdd-int-container">
+      <div class="diag-int-header reveal-up">
+        <p class="diag-int-tag">Filtrado Inteligente de Prospectos</p>
+        <h2 class="diag-int-title">De datos brutos a<br>reuniones cerradas</h2>
+        <p class="diag-int-subtitle">Extraemos miles de perfiles inaccesibles, el algoritmo califica, y tú hablas solo
+          con los listos para comprar.</p>
+      </div>
+
+      <div class="diag-int-layout bbdd-int-layout reveal-up delay-1"
+        style="display: flex; gap: 40px; margin-top: 40px;">
+
+        <!-- Lista Izquierda -->
+        <div class="diag-int-list bbdd-int-list" style="flex: 1;">
+          <div class="diag-int-item active bbdd-item" data-bphase="0">
+            <div class="diag-int-icon">
+              <!-- Lupa / Busqueda -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 1.5a8.5 8.5 0 1 1 0 17 8.5 8.5 0 0 1 0-17zm3.146 11.854a.5.5 0 0 1 0 .708L12.707 18.5a.5.5 0 0 1-.708 0L9.5 15.604a.5.5 0 1 1 .708-.708l2.146 2.147 2.146-2.147a.5.5 0 0 1 .708 0z"
+                  fill="currentColor" />
+              </svg>
+            </div>
+            <div class="diag-int-content">
+              <h3>1. Recopilación Masiva</h3>
+              <p>Barremos múltiples fuentes corporativas descartando ruido. Un Data Lake inicial con miles de empresas
+                de tu nicho.</p>
+            </div>
+          </div>
+          <div class="diag-int-item bbdd-item" data-bphase="1">
+            <div class="diag-int-icon">
+              <!-- Engranaje / Filtro -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M11 2v4.2C7.06 6.69 4 10 4 14.05c0 4.3 3.32 7.82 7.5 7.94V16h1v6.01c4.42-.13 7.9-3.79 7.9-8.06 0-3.95-2.9-7.23-6.6-7.76V2h-2.8z"
+                  fill="currentColor" />
+              </svg>
+            </div>
+            <div class="diag-int-content">
+              <h3>2. Algoritmo de Calificación</h3>
+              <p>Verificamos facturación, puesto del contacto, y validación de correo. Rechazamos los datos inútiles al
+                instante.</p>
+            </div>
+          </div>
+          <div class="diag-int-item bbdd-item" data-bphase="2">
+            <div class="diag-int-icon">
+              <!-- Matriz / Grid -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 3c-4.42 0-8 1.79-8 4s3.58 4 8 4 8-1.79 8-4-3.58-4-8-4zm0 6c-3.31 0-6-1.34-6-3s2.69-3 6-3 6 1.34 6 3-2.69 3-6 3zm0 2c-4.42 0-8 1.79-8 4s3.58 4 8 4 8-1.79 8-4-3.58-4-8-4zm0 6c-3.31 0-6-1.34-6-3v.45c0 1.66 2.69 3 6 3s6-1.34 6-3v-.45c0 1.66-2.69 3-6 3z"
+                  fill="currentColor" />
+              </svg>
+            </div>
+            <div class="diag-int-content">
+              <h3>3. Base de Datos Lista para CRM</h3>
+              <p>Una matriz perfecta. Teléfonos directos y emails listos para tu equipo comercial, sin perder tiempo
+                prospectando.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="diag-int-visual bbdd-int-visual"
+          style="flex: 1; position: relative; border-radius: 12px; overflow: hidden; background: #fff; border: 1px solid rgba(0, 0, 0, 0.05); min-height: 400px; display: flex; align-items: center; justify-content: center;">
+          <canvas id="bbddChartCanvas"
+            style="width: 100%; height: 100%; display: block; position: absolute; inset: 0;"></canvas>
+          <div class="bbdd-canvas-overlay"
+            style="position: absolute; top: 15px; left: 20px; padding: 6px 12px; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(0,0,0,0.08); border-radius: 6px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; color: #111; text-transform: uppercase;">
+            <div class="bbdd-overlay-text" id="bbdd-status-text">ANALIZANDO DATOS BRUTOS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const canvas = document.getElementById('bbddChartCanvas');
+      if (!canvas) return;
+
+      const ctx = canvas.getContext('2d');
+      let width, height;
+
+      function resize() {
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.parentElement.getBoundingClientRect();
+        width = rect.width; height = rect.height || 400;
+        canvas.width = width * dpr; canvas.height = height * dpr;
+        ctx.scale(dpr, dpr);
+        canvas.style.width = width + 'px'; canvas.style.height = height + 'px';
+      }
+      window.addEventListener('resize', resize);
+      setTimeout(resize, 100);
+
+      const numParticles = 180;
+      let particles = [];
+      for (let i = 0; i < numParticles; i++) {
+        particles.push({
+          x: (Math.random() - 0.5) * 1000,
+          y: (Math.random() - 0.5) * 1000,
+          z: (Math.random() * 1000) + 200,
+          orbitAngle: Math.random() * Math.PI * 2,
+          orbitSpeed: (Math.random() - 0.5) * 0.04,
+          gridX: 0, gridY: 0, gridZ: 0,
+          currentX: (Math.random() - 0.5) * 1000,
+          currentY: (Math.random() - 0.5) * 1000,
+          currentZ: (Math.random() * 1000) + 200
+        });
+      }
+
+      let gridSize = Math.ceil(Math.pow(numParticles, 1 / 3));
+      let spacing = 160;
+      let idx = 0;
+      for (let gx = -Math.floor(gridSize / 2); gx <= Math.floor(gridSize / 2); ++gx) {
+        for (let gy = -Math.floor(gridSize / 2); gy <= Math.floor(gridSize / 2); ++gy) {
+          for (let gz = -Math.floor(gridSize / 2); gz <= Math.floor(gridSize / 2); ++gz) {
+            if (idx < numParticles) {
+              particles[idx].gridX = gx * spacing;
+              particles[idx].gridY = gy * spacing;
+              particles[idx].gridZ = gz * spacing;
+              idx++;
+            }
+          }
+        }
+      }
+
+      let bbddPhase = 0;
+      let globalTime = 0;
+
+      const bItems = document.querySelectorAll('.bbdd-item');
+      const statusText = document.getElementById('bbdd-status-text');
+
+      bItems.forEach((item, index) => {
+        item.addEventListener('mouseenter', () => {
+          if (bbddPhase === index) return;
+          bItems.forEach(i => i.classList.remove('active'));
+          item.classList.add('active');
+          bbddPhase = index;
+          if (index === 0) statusText.textContent = "ANALIZANDO DATOS BRUTOS";
+          else if (index === 1) statusText.textContent = "ALGORITMO DE CALIFICACIÓN ACTIVO";
+          else statusText.textContent = "ARQUITECTURA PREPARADA";
+        });
+      });
+
+      const bbddSec = document.getElementById('dynamic-bbdd-section');
+      if (bbddSec) {
+        const obs = new IntersectionObserver((entries) => {
+          if (entries[0].isIntersecting) { resize(); obs.disconnect(); }
+        }, { threshold: 0.1 });
+        obs.observe(bbddSec);
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        globalTime++;
+
+        const fov = 350;
+
+        particles.forEach(p => {
+          let tx, ty, tz;
+          if (bbddPhase === 0) {
+            tx = p.x + Math.sin(globalTime * 0.01 + p.x) * 120;
+            ty = p.y + Math.cos(globalTime * 0.015 + p.y) * 120;
+            tz = p.z + Math.sin(globalTime * 0.01 + p.z) * 120;
+          } else if (bbddPhase === 1) {
+            p.orbitAngle += p.orbitSpeed;
+            let radius = 250 + Math.sin(globalTime * 0.05 + p.y) * 30;
+            tx = Math.cos(p.orbitAngle) * radius;
+            ty = p.y * 0.4 + Math.sin(globalTime * 0.04) * 50;
+            tz = Math.sin(p.orbitAngle) * radius + 500;
+          } else {
+            let rotX = globalTime * 0.003;
+            let rotY = globalTime * 0.005;
+
+            let gx = p.gridX, gy = p.gridY, gz = p.gridZ;
+            let x1 = gx * Math.cos(rotY) - gz * Math.sin(rotY);
+            let z1 = gx * Math.sin(rotY) + gz * Math.cos(rotY);
+            let y2 = gy * Math.cos(rotX) - z1 * Math.sin(rotX);
+            let z2 = gy * Math.sin(rotX) + z1 * Math.cos(rotX);
+
+            tx = x1;
+            ty = y2;
+            tz = z2 + 600;
+          }
+
+          p.currentX += (tx - p.currentX) * 0.06;
+          p.currentY += (ty - p.currentY) * 0.06;
+          p.currentZ += (tz - p.currentZ) * 0.06;
+
+          let z = p.currentZ;
+          if (z < 1) z = 1;
+          let projX = (width / 2) + (p.currentX / z) * fov;
+          let projY = (height / 2) + (p.currentY / z) * fov;
+
+          let scale = Math.max(0.2, (fov / z) * 2.5);
+          let alpha = Math.min(1, Math.max(0, 1 - (z - 200) / 1400));
+
+          let opacityMultiplier = 0.5;
+          if (bbddPhase === 1) {
+            opacityMultiplier = Math.random() > 0.9 ? 0 : 0.6;
+          } else if (bbddPhase === 2) {
+            opacityMultiplier = 0.8;
+          }
+
+          ctx.beginPath();
+          ctx.arc(projX, projY, scale, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(10, 10, 10, ${alpha * opacityMultiplier})`;
+          if (bbddPhase === 2 && Math.random() > 0.95) ctx.fillStyle = '#000';
+          ctx.fill();
+        });
+
+        if (bbddPhase === 2) {
+          ctx.strokeStyle = "rgba(0,0,0,0.06)";
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          for (let i = 1; i < particles.length; i++) {
+            let p = particles[i];
+            let pPrev = particles[i - 1];
+            if (p.gridY === pPrev.gridY && p.gridZ === pPrev.gridZ) {
+              let z1 = p.currentZ; let z2 = pPrev.currentZ;
+              if (z1 > 1 && z2 > 1) {
+                ctx.moveTo((width / 2) + (p.currentX / z1) * fov, (height / 2) + (p.currentY / z1) * fov);
+                ctx.lineTo((width / 2) + (pPrev.currentX / z2) * fov, (height / 2) + (pPrev.currentY / z2) * fov);
+              }
+            }
+          }
+          ctx.stroke();
+        } else if (bbddPhase === 1) {
+          let scanY = (Math.sin(globalTime * 0.05) * height / 3) + height / 2;
+          ctx.beginPath();
+          let grad = ctx.createLinearGradient(0, scanY - 30, 0, scanY + 30);
+          grad.addColorStop(0, "rgba(0,0,0,0)");
+          grad.addColorStop(0.5, "rgba(0,0,0,0.05)");
+          grad.addColorStop(1, "rgba(0,0,0,0)");
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, scanY - 30, width, 60);
+
+          ctx.beginPath();
+          ctx.moveTo(0, scanY);
+          ctx.lineTo(width, scanY);
+          ctx.strokeStyle = "rgba(0,0,0,0.15)";
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+
+        requestAnimationFrame(animate);
+      }
+      animate();
+    });
+  </script>
+
+  <!-- ========== SECTION: AUTOMATIZACION - IA ORCHESTRATOR (PROFESSIONAL REDESIGN) ========== -->
+  <section class="auto-interactive-section" id="dynamic-automatizacion-section"
+    style="display: none; background: #fff;">
+    <div class="diag-int-container" style="max-width: 1200px; margin: 0 auto;">
+
+      <!-- HEADER -->
+      <div class="diag-int-header reveal-up" style="text-align: center; margin: 0 auto 80px;">
+        <p class="diag-int-tag">AI & Business Automation</p>
+        <h2 class="diag-int-title">No automatizamos tareas.<br>Creamos ecosistemas inteligentes.</h2>
+        <p class="diag-int-subtitle" style="margin: 0 auto; max-width: 700px;">Sistemas que piensan, actúan y escalan tu
+          negocio mientras tú te enfocas en la estrategia de alto nivel.</p>
+      </div>
+
+      <!-- THE ORCHESTRATOR VISUAL -->
+      <div class="ai-orchestrator reveal-up delay-1">
+        <div class="orchestrator-canvas-container" id="orchestrator-visual-area">
+          <div class="ia-node-core">
+            <span class="ia-node-label">ALDIÁ AI</span>
+            <span class="ia-node-status" id="ia-speed-val">SYNC</span>
+          </div>
+
+          <div class="ia-peripheral-node" style="top: 10%; left: 10%;">CRM</div>
+          <div class="ia-peripheral-node" style="top: 10%; right: 10%;">WEB</div>
+          <div class="ia-peripheral-node" style="bottom: 10%; left: 10%;">MAPS</div>
+          <div class="ia-peripheral-node" style="bottom: 10%; right: 10%;">SM</div>
+          <div class="ia-peripheral-node" style="top: 50%; left: 5%;">BBDD</div>
+          <div class="ia-peripheral-node" style="top: 50%; right: 5%;">WAT</div>
+
+          <svg class="neural-svg" id="orchestrator-svg"
+            style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;"></svg>
+        </div>
+
+        <div class="ia-cases-grid">
+          <!-- Row 1 -->
+          <div class="ia-case-card">
+            <h4>Buscador de Leads B2B</h4>
+            <p>Obtención de leads reales de empresas ingresando código postal o categorías de Google Maps de forma
+              masiva.</p>
+          </div>
+          <div class="ia-case-card">
+            <h4>Reseñas Automáticas</h4>
+            <p>Envío automático de solicitudes de reseña en Google al cliente final tras cada visita o servicio
+              completado.</p>
+          </div>
+          <div class="ia-case-card">
+            <h4>Rescate de Carritos</h4>
+            <p>Mailing de seguimiento inteligente si un carrito no se completa en un margen crítico de 2 horas.</p>
+          </div>
+          <!-- Row 2 -->
+          <div class="ia-case-card">
+            <h4>WhatsApp Business FAQ</h4>
+            <p>Automatización de consultas recurrentes para que tu equipo comercial deje de responder siempre lo mismo.
+            </p>
+          </div>
+          <div class="ia-case-card">
+            <h4>Hiper-Personalización</h4>
+            <p>Envío de hasta 20.000 emails personalizados según el negocio de cada cliente en menos de un minuto.</p>
+          </div>
+          <div class="ia-case-card">
+            <h4>Social Media Ops</h4>
+            <p>Automatización integral del calendario de publicaciones en redes sociales y medios digitales.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPACT BAR BELOW -->
+      <div class="reveal-up delay-2" style="margin-top: 40px; width: 100%;">
+        <div class="method-compact-bar">
+          <div class="method-p-item">
+            <span class="method-p-num">01</span>
+            <div>
+              <strong>Análisis Eficiente</strong>
+              <p>Detectamos puntos de mejora en tus procesos actuales.</p>
+            </div>
+          </div>
+          <div class="method-p-item">
+            <span class="method-p-num">02</span>
+            <div>
+              <strong>Diseño Visual</strong>
+              <p>Creamos sistemas con flujos claros y controlables.</p>
+            </div>
+          </div>
+          <div class="method-p-item">
+            <span class="method-p-num">03</span>
+            <div>
+              <strong>Conexión Total</strong>
+              <p>Unimos CRM, Email, Forms, WhatsApp e IA.</p>
+            </div>
+          </div>
+          <div class="method-p-item">
+            <span class="method-p-num">04</span>
+            <div>
+              <strong>Gestión Aldia</strong>
+              <p>Te enseñamos a usarlo o lo gestionamos por ti.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Script del Diagrama Interactivo de Automatizacion -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const canvas = document.getElementById('autoFlowCanvas');
+      if (!canvas) return;
+
+      const ctx = canvas.getContext('2d');
+      let width, height;
+
+      function resize() {
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.parentElement.getBoundingClientRect();
+        width = rect.width; height = rect.height || 480;
+        canvas.width = width * dpr; canvas.height = height * dpr;
+        ctx.scale(dpr, dpr);
+      }
+      window.addEventListener('resize', resize);
+      setTimeout(resize, 100);
+
+      let universalNodes = [
+        { id: 0, dx: 0.5, dy: 0.5, currentX: 0, currentY: 0, targetA: 0, a: 0, label: "" },
+        { id: 1, dx: 0.5, dy: 0.5, currentX: 0, currentY: 0, targetA: 0, a: 0, label: "" },
+        { id: 2, dx: 0.5, dy: 0.5, currentX: 0, currentY: 0, targetA: 0, a: 0, label: "" },
+        { id: 3, dx: 0.5, dy: 0.5, currentX: 0, currentY: 0, targetA: 0, a: 0, label: "" },
+        { id: 4, dx: 0.5, dy: 0.5, currentX: 0, currentY: 0, targetA: 0, a: 0, label: "" }
+      ];
+
+      const aPhases = [
+        {
+          status: "EXTRACCIÓN ACTIVA DE CLIENTES",
+          nodes: [
+            { i: 0, dx: 0.2, dy: 0.5, a: 1, l: "Internet" },
+            { i: 1, dx: 0.5, dy: 0.5, a: 1, l: "Radar Automático" },
+            { i: 2, dx: 0.8, dy: 0.5, a: 1, l: "Dinero en Mesa" },
+            { i: 3, dx: 0.5, dy: 0.2, a: 0, l: "" },
+            { i: 4, dx: 0.5, dy: 0.8, a: 0, l: "" }
+          ],
+          edges: [[0, 1], [1, 2]]
+        },
+        {
+          status: "RECUPERACIÓN INMEDIATA",
+          nodes: [
+            { i: 0, dx: 0.2, dy: 0.3, a: 1, l: "Fuga del Cliente" },
+            { i: 1, dx: 0.5, dy: 0.5, a: 1, l: "Cubo Psicológico" },
+            { i: 2, dx: 0.8, dy: 0.2, a: 1, l: "Venta Asegurada" },
+            { i: 3, dx: 0.8, dy: 0.8, a: 1, l: "Reseña 5 Estrellas" },
+            { i: 4, dx: 0.5, dy: 0.8, a: 0, l: "" }
+          ],
+          edges: [[0, 1], [1, 2], [1, 3]]
+        },
+        {
+          status: "IA CONVERSACIONAL INTEGRADA",
+          nodes: [
+            { i: 0, dx: 0.15, dy: 0.5, a: 1, l: "Cliente Potencial" },
+            { i: 1, dx: 0.45, dy: 0.5, a: 1, l: "Cerebro IA" },
+            { i: 2, dx: 0.85, dy: 0.3, a: 1, l: "Duda Despejada" },
+            { i: 3, dx: 0.85, dy: 0.7, a: 1, l: "Cita Agendada" },
+            { i: 4, dx: 0.45, dy: 0.2, a: 1, l: "Sincronizador" }
+          ],
+          edges: [[4, 1], [0, 1], [1, 2], [1, 3]]
+        },
+        {
+          status: "SISTEMA DE HIPER-IMPACTO",
+          nodes: [
+            { i: 0, dx: 0.15, dy: 0.2, a: 1, l: "Océano Leads" },
+            { i: 1, dx: 0.15, dy: 0.8, a: 1, l: "Oferta Estrella" },
+            { i: 2, dx: 0.5, dy: 0.5, a: 1, l: "Motor de Masas" },
+            { i: 3, dx: 0.85, dy: 0.2, a: 1, l: "Redes Explotan" },
+            { i: 4, dx: 0.85, dy: 0.8, a: 1, l: "20.000 Emails" }
+          ],
+          edges: [[0, 2], [1, 2], [2, 3], [2, 4]]
+        }
+      ];
+
+      universalNodes.forEach(n => { n.currentX = window.innerWidth / 2; n.currentY = 240; });
+
+      let currentPhase = -1;
+      let globalTime = 0;
+      let edges = [];
+
+      function setPhase(idx) {
+        currentPhase = idx;
+        const config = aPhases[idx];
+        const statusText = document.getElementById('auto-status-text');
+        if (statusText) statusText.textContent = config.status;
+        edges = config.edges;
+        config.nodes.forEach(cn => {
+          universalNodes[cn.i].dx = cn.dx;
+          universalNodes[cn.i].dy = cn.dy;
+          universalNodes[cn.i].targetA = cn.a;
+          if (cn.a === 1) universalNodes[cn.i].label = cn.l;
+        });
+      }
+
+      const aItems = document.querySelectorAll('.auto-item');
+      aItems.forEach((item, index) => {
+        item.addEventListener('mouseenter', () => {
+          if (currentPhase === index) return;
+          aItems.forEach(i => i.classList.remove('active'));
+          item.classList.add('active');
+          setPhase(index);
+        });
+      });
+
+      const autoSec = document.getElementById('dynamic-automatizacion-section');
+      // Initialize immediately to generate nodes
+      setPhase(0);
+
+      function roundRect(ctx, x, y, width, height, radius) {
+        ctx.beginPath();
+        ctx.moveTo(x + radius, y);
+        ctx.lineTo(x + width - radius, y);
+        ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+        ctx.lineTo(x + width, y + height - radius);
+        ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+        ctx.lineTo(x + radius, y + height);
+        ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+        ctx.lineTo(x, y + radius);
+        ctx.quadraticCurveTo(x, y, x + radius, y);
+        ctx.closePath();
+      }
+
+      function animate() {
+        if (!width) return requestAnimationFrame(animate); // safety
+        ctx.clearRect(0, 0, width, height);
+        globalTime++;
+
+        universalNodes.forEach(n => {
+          let tx = width * n.dx;
+          let ty = height * n.dy;
+          n.currentX += (tx - n.currentX) * 0.08;
+          n.currentY += (ty - n.currentY) * 0.08;
+          n.a += (n.targetA - n.a) * 0.1;
+        });
+
+        edges.forEach(edge => {
+          const n1 = universalNodes[edge[0]];
+          const n2 = universalNodes[edge[1]];
+          if (n1.a > 0.1 && n2.a > 0.1) {
+            ctx.beginPath();
+            ctx.moveTo(n1.currentX, n1.currentY);
+            let cp1x = (n1.currentX + n2.currentX) / 2;
+            let cp1y = n1.currentY;
+            let cp2x = (n1.currentX + n2.currentX) / 2;
+            let cp2y = n2.currentY;
+            ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, n2.currentX, n2.currentY);
+
+            ctx.strokeStyle = `rgba(120, 120, 120, ${Math.min(n1.a, n2.a) * 0.25})`;
+            ctx.lineWidth = 2;
+            ctx.setLineDash([6, 6]);
+            ctx.lineDashOffset = -globalTime * 0.5;
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            let t = ((globalTime * 0.006) + (edge[0] * 0.25)) % 1;
+            let bx = Math.pow(1 - t, 3) * n1.currentX + 3 * Math.pow(1 - t, 2) * t * cp1x + 3 * (1 - t) * Math.pow(t, 2) * cp2x + Math.pow(t, 3) * n2.currentX;
+            let by = Math.pow(1 - t, 3) * n1.currentY + 3 * Math.pow(1 - t, 2) * t * cp1y + 3 * (1 - t) * Math.pow(t, 2) * cp2y + Math.pow(t, 3) * n2.currentY;
+
+            ctx.beginPath();
+            ctx.arc(bx, by, 3.5, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(30, 30, 30, ${Math.min(n1.a, n2.a)})`;
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(bx, by, 8, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(30, 30, 30, ${Math.min(n1.a, n2.a) * 0.2})`;
+            ctx.fill();
+          }
+        });
+
+        ctx.font = "500 12px Inter, sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        universalNodes.forEach(n => {
+          if (n.a > 0.05) {
+            const boxW = 125;
+            const boxH = 34;
+            ctx.globalAlpha = n.a;
+
+            ctx.shadowColor = "rgba(0,0,0,0.06)";
+            ctx.shadowBlur = 10;
+            ctx.shadowOffsetY = 4;
+
+            ctx.fillStyle = "#fff";
+            roundRect(ctx, n.currentX - boxW / 2, n.currentY - boxH / 2, boxW, boxH, 8);
+            ctx.fill();
+
+            ctx.shadowColor = "transparent";
+            ctx.strokeStyle = "rgba(0,0,0,0.08)";
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            ctx.fillStyle = "#111";
+            ctx.fillText(n.label, n.currentX, n.currentY);
+
+            ctx.globalAlpha = 1;
+          }
+        });
+
+        requestAnimationFrame(animate);
+      }
+    });
+  </script>
+
+  <!-- Scripts -->
+  <script>
+    // Datos de los servicios para el intercambio dinámico
+    const serviceData = {
+      diagnostico: {
+        title: "Diagnóstico Personalizado",
+        items: [
+          "Auditoría técnica profunda de tu sitio web o ecosistema digital",
+          "Revisión de flujo de usuario y optimización de conversión (CRO)",
+          "Análisis de arquitectura SEO base y velocidad de carga",
+          "Entrega de hoja de ruta estratégica con acciones de alto impacto",
+          "Identificación de cuellos de botella operativos"
+        ]
+      },
+      seo: {
+        title: "Mejora de SEO Estratégico",
+        items: [
+          "Optimización on-page completa (meta-tags, títulos, estructura)",
+          "Estrategia de palabras clave enfocada a intención de compra",
+          "Corrección de errores técnicos de indexación y sitemaps",
+          "Recomendaciones de contenido para ganar autoridad en el nicho",
+          "Mejoras de Core Web Vitals para mejor posicionamiento"
+        ]
+      },
+      bbdd: {
+        title: "Generación de Bases de Datos B2B",
+        items: [
+          "Búsqueda dirigida de leads en sectores o nichos específicos",
+          "Segmentación por puesto, tamaño de empresa o cliente ideal",
+          "Limpieza profunda y validación de correos/teléfonos",
+          "Enriquecimiento de datos para personalización de ventas",
+          "Entrega en formato usable optimizado para CRM o Excel"
+        ]
+      },
+      landing: {
+        title: "Landing Pages de Alta Conversión",
+        items: [
+          "Diseño 100% enfocado a la captura de leads o ventas",
+          "Redacción de copy persuasivo orientado a resultados",
+          "Formularios inteligentes integrados con tu base de datos",
+          "Arquitectura responsive ultra-rápida y ligera",
+          "Configuración de analítica y seguimiento de conversiones"
+        ]
+      },
+      corporativa: {
+        title: "Web Corporativa Institucional",
+        items: [
+          "Diseño web profesional de 3 a 6 secciones estratégicas",
+          "Estructura comunicativa que transmite confianza de élite",
+          "Optimización de carga y SEO semántico básico",
+          "Capacidad de escala para futuras funcionalidades",
+          "Gestión de contenido intuitiva para tu equipo"
+        ]
+      },
+      bots: {
+        title: "Agentes con IA 24/7",
+        items: [
+          "Diseño de flujos conversacionales inteligentes",
+          "Implementación en Web, WhatsApp o redes sociales",
+          "Integración con tus sistemas base para soporte o ventas",
+          "Respuestas basadas en tu propio conocimiento corporativo",
+          "Testing riguroso para evitar errores en la conversación"
+        ]
+      },
+      automatizacion: {
+        title: "Automatización de Procesos",
+        items: [
+          "Análisis de tareas repetitivas y cuellos de botella",
+          "Diseño de flujos de trabajo en piloto automático",
+          "Implementación con herramientas líderes (N8N, Make)",
+          "Integración de aplicaciones para flujo de datos sin fricción",
+          "Pruebas de estrés y documentación técnica del sistema"
+        ]
+      },
+      integraciones: {
+        title: "Integraciones de Sistemas",
+        items: [
+          "Conexión estable entre herramientas de marketing, ventas y CRM",
+          "Sincronización de datos en tiempo real entre plataformas",
+          "Desarrollo de conectores personalizados vía API",
+          "Reducción manual de duplicados y errores de entrada",
+          "Monitorización de salud de las APIs y flujos"
+        ]
+      },
+      powerapps: {
+        title: "Microsoft Power Platform Suite",
+        items: [
+          "Diseño de Power Apps: Aplicaciones internas a medida para procesos operativos",
+          "Power Automate: Automatización de flujos corporativos de aprobación y gestión",
+          "Power BI: Dashboards interactivos y analítica de datos en tiempo real",
+          "Digitalización de procesos operativos sobre el ecosistema Microsoft 365",
+          "Sincronización avanzada entre Excel, SharePoint, Teams y SQL",
+          "Seguridad empresarial y control de accesos centralizado"
+        ]
+      }
+    };
+
+    const fluentCheckCircle = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm0 1.5a8.5 8.5 0 1 0 0 17 8.5 8.5 0 0 0 0-17zm4.354 6.646a.5.5 0 0 1 0 .708l-5.5 5.5a.5.5 0 0 1-.708 0l-2.5-2.5a.5.5 0 1 1 .708-.708L10.5 14.293l5.146-5.147a.5.5 0 0 1 .708 0z" fill="currentColor"/></svg>`;
+    const fluentStar = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.5a.75.75 0 0 1 .68.441l2.564 5.152 5.64.827a.75.75 0 0 1 .416 1.28l-4.08 4.008.963 5.617a.75.75 0 0 1-1.088.79l-5.093-2.678-5.093 2.678a.75.75 0 0 1-1.089-.79l.964-5.617-4.08-4.008a.75.75 0 0 1 .416-1.28l5.639-.827L11.32 2.94a.75.75 0 0 1 .68-.442z" fill="currentColor"/></svg>`;
+    const fluentClock = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm0 1.5a8.5 8.5 0 1 0 0 17 8.5 8.5 0 0 0 0-17zm.5 4v5.25l3.28 1.968a.75.75 0 0 1-.76 1.282l-3.75-2.25a.75.75 0 0 1-.37-.65v-5.6a.75.75 0 0 1 1.5 0z" fill="currentColor"/></svg>`;
+    const fluentGrid = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM4 4.5h5v5H4v-5zM20 3h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM14 4.5h5v5h-5v-5zM10 13H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1zM4 14.5h5v5H4v-5zM20 13h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1zM14 14.5h5v5h-5v-5z" fill="currentColor"/></svg>`;
+    const fluentChart = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 19.5a.75.75 0 0 1 .75-.75H21a.75.75 0 0 1 0 1.5H3.25a.75.75 0 0 1-.75-.75zM4.22 14.53a.75.75 0 0 1 0-1.06l5.25-5.25a.75.75 0 0 1 1.06 0l2.72 2.72 5.47-5.47a.75.75 0 1 1 1.06 1.06l-6 6a.75.75 0 0 1-1.06 0L10 9.81l-4.72 4.72a.75.75 0 0 1-1.06 0z" fill="currentColor"/></svg>`;
+    const fluentPuzzle = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.5 2.75a2.25 2.25 0 0 1 4.455-.443.75.75 0 0 1-.652.836A.75.75 0 0 1 14.5 2.5a.75.75 0 0 0-1.5 0V3.5h.75C15.986 3.5 17.5 5.014 17.5 6.883V11h.25a2.25 2.25 0 0 1 0 4.5H17.5v.75a3.383 3.383 0 0 1-3.383 3.383h-5.25A3.383 3.383 0 0 1 5.484 16.25v-.75H5.25a2.25 2.25 0 1 1 0-4.5h.234V6.883C5.484 5.014 7 3.5 8.867 3.5H11.5V2.75zm.75 1.5v-1.5a.75.75 0 0 0-1.5 0v1.5h1.5zM6.984 11h-.734a.75.75 0 1 0 0 1.5h.734v-1.5zm10.516 1.5h.25a.75.75 0 1 0 0-1.5h-.25v1.5zM6.983 6.883v9.367c0 1.04.842 1.883 1.884 1.883h5.25c1.042 0 1.884-.843 1.884-1.883V6.883a1.884 1.884 0 0 0-1.884-1.883H8.867a1.884 1.884 0 0 0-1.884 1.883z" fill="currentColor"/></svg>`;
+    const fluentDatabase = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3C7.58 3 4 4.79 4 7s3.58 4 8 4 8-1.79 8-4-3.58-4-8-4zM4 9v3c0 2.21 3.58 4 8 4s8-1.79 8-4V9c0 2.21-3.58 4-8 4s-8-1.79-8-4zM4 14v3c0 2.21 3.58 4 8 4s8-1.79 8-4v-3c0 2.21-3.58 4-8 4s-8-1.79-8-4z" fill="currentColor"/></svg>`;
+    const fluentSettings = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.14 12.936c.04-.306.06-.619.06-.936a7.68 7.68 0 0 0-.06-.936l2.112-1.656a.465.465 0 0 0 .113-.591l-2-3.464a.46.46 0 0 0-.568-.198l-2.484 1.003A7.545 7.545 0 0 0 14.7 4.962l-.375-2.648a.465.465 0 0 0-.462-.399h-4a.464.464 0 0 0-.462.399l-.375 2.648a7.544 7.544 0 0 0-1.611 1.196l-2.486-1.003a.46.46 0 0 0-.568.198l-2 3.464a.464.464 0 0 0 .114.59l2.11 1.657a7.684 7.684 0 0 0 0 1.872l-2.11 1.657a.464.464 0 0 0-.114.59l2 3.464c.125.218.39.308.568.198l2.486-1.003a7.544 7.544 0 0 0 1.611 1.196l.375 2.648a.464.464 0 0 0 .462.399h4c.22 0 .408-.157.462-.399l.375-2.648a7.545 7.545 0 0 0 1.613-1.196l2.484 1.003c.178.11.442.02.568-.198l2-3.464a.465.465 0 0 0-.113-.59l-2.111-1.657h-.001zm-7.14 2.564a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" fill="currentColor"/></svg>`;
+    const fluentShield = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 2.2L19 6.3v4.7c0 4.41-3.08 8.44-7 9.68-3.92-1.24-7-5.27-7-9.68V6.3l7-3.1z" fill="currentColor"/></svg>`;
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
+
+      const titleEl = document.querySelector('.auto-title');
+      const listEl = document.getElementById('service-benefit-list');
+      const links = document.querySelectorAll('#sidebar-links a');
+
+      const workflowVisual = document.getElementById('workflow-visual');
+      const orbitVisual = document.getElementById('orbit-visual');
+      const mobileVisual = document.getElementById('mobile-visual');
+
+      function updateService(serviceKey) {
+        const data = serviceData[serviceKey];
+        if (!data) return;
+
+        // Mostrar u ocultar secciones dinámicas de la parte inferior
+        const uxuiSection = document.getElementById('dynamic-uxui-section');
+        const seoSection = document.getElementById('dynamic-seo-section');
+        const diagSection = document.getElementById('dynamic-diagnostico-section');
+        const bbddSection = document.getElementById('dynamic-bbdd-section');
+        const autoSection = document.getElementById('dynamic-automatizacion-section');
+
+        if (uxuiSection && seoSection && diagSection) {
+          // Reset default
+          uxuiSection.style.display = 'none';
+          seoSection.style.display = 'none';
+          diagSection.style.display = 'none';
+          if (bbddSection) bbddSection.style.display = 'none';
+          if (autoSection) autoSection.style.display = 'none';
+
+          const corpSection = document.getElementById('dynamic-corporativa-section');
+          const intSection = document.getElementById('dynamic-integraciones-section');
+          const powerSection = document.getElementById('dynamic-powerapps-section');
+          const botsSection = document.getElementById('dynamic-bots-section');
+
+          if (corpSection) corpSection.style.display = 'none';
+          if (intSection) intSection.style.display = 'none';
+          if (powerSection) powerSection.style.display = 'none';
+          if (botsSection) botsSection.style.display = 'none';
+
+          if (serviceKey === 'landing') {
+            uxuiSection.style.display = 'flex';
+          } else if (serviceKey === 'corporativa') {
+            if (corpSection) corpSection.style.display = 'flex';
+            uxuiSection.style.display = 'flex';
+          } else if (serviceKey === 'seo') {
+            seoSection.style.display = 'flex';
+            window.dispatchEvent(new Event('resize'));
+          } else if (serviceKey === 'diagnostico') {
+            diagSection.style.display = 'flex';
+          } else if (serviceKey === 'bbdd') {
+            if (bbddSection) bbddSection.style.display = 'flex';
+            window.dispatchEvent(new Event('resize'));
+          } else if (serviceKey === 'automatizacion') {
+            if (autoSection) autoSection.style.display = 'flex';
+            initAutoVisual();
+            window.dispatchEvent(new Event('resize'));
+          } else if (serviceKey === 'integraciones') {
+            if (intSection) intSection.style.display = 'flex';
+            initFlowV2();
+          } else if (serviceKey === 'powerapps') {
+            if (powerSection) powerSection.style.display = 'flex';
+            initPowerOS();
+          } else if (serviceKey === 'bots') {
+            if (botsSection) botsSection.style.display = 'flex';
+          }
+        }
+
+        // Desactivar animaciones para resetear el efecto (Salida)
+        const revealElements = [titleEl, listEl, workflowVisual, orbitVisual, mobileVisual];
+        revealElements.forEach(el => el.classList.remove('active'));
+
+        // Esperamos a que el desvanecimiento (1s) avance antes de cambiar el contenido
+        setTimeout(() => {
+          // Actualización de contenido de texto
+          titleEl.textContent = data.title;
+
+          let html = "";
+          data.items.forEach(item => {
+            html += `<li><span class="benefit-icon-wrapper">${fluentCheckCircle}</span><p>${item}</p></li>`;
+          });
+
+          html += `<li class="special"><p>Personalizamos la solución a tu medida...</p></li>`;
+          listEl.innerHTML = html;
+
+          // Lógica de visuales según el servicio
+          if (serviceKey === 'powerapps') {
+            workflowVisual.style.display = 'none';
+            mobileVisual.style.display = 'none';
+            orbitVisual.style.setProperty('display', 'flex', 'important');
+            setTimeout(() => orbitVisual.classList.add('active'), 50);
+          } else if (serviceKey === 'diagnostico') {
+            orbitVisual.style.setProperty('display', 'none', 'important');
+            workflowVisual.style.display = 'none';
+            mobileVisual.innerHTML = `
+                                        <div class="mobile-visual-container">
+                                          <div class="mobile-visual-wrapper">
+                                            <img src="./assets/movildiagnostico.png" alt="Diagnóstico Mobile" class="mobile-visual-anim">
+                                            
+                                            <!-- Tarjetas Metricas Flotantes -->
+                                            <div class="floating-metrics">
+                                              <div class="metric-glass-card card-1">
+                                                <div class="m-icon">${fluentGrid}</div>
+                                                <div class="m-content">
+                                                  <span class="m-value">$35.800</span>
+                                                  <span class="m-label">CAPITAL RECUPERADO<br>MENSUAL</span>
+                                                </div>
+                                              </div>
+                                              
+                                              <div class="metric-glass-card card-2">
+                                                <div class="m-icon">${fluentChart}</div>
+                                                <div class="m-content">
+                                                  <span class="m-value">+ 64%</span>
+                                                  <span class="m-label">INCREMENTO EN<br>RETENCIÓN</span>
+                                                </div>
+                                              </div>
+                                              
+                                              <div class="metric-glass-card card-3">
+                                                <div class="m-icon">${fluentClock}</div>
+                                                <div class="m-content">
+                                                  <span class="m-value">&lt; 1 MIN</span>
+                                                  <span class="m-label"> RESPUESTA AUTOMATIZADA</span>
+                                                </div>
+                                              </div>
+                                              
+                                              <div class="metric-glass-card card-4">
+                                                <div class="m-icon">${fluentGrid}</div>
+                                                <div class="m-content">
+                                                  <span class="m-value">85%</span>
+                                                  <span class="m-label">REDUCCIÓN DE<br>ERRORES </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>`;
+            mobileVisual.style.display = 'block';
+            setTimeout(() => mobileVisual.classList.add('active'), 50);
+          } else {
+            orbitVisual.style.setProperty('display', 'none', 'important');
+            mobileVisual.style.display = 'none';
+
+            workflowVisual.style.display = 'block';
+
+            // Actualizar contenido para el flujo de trabajo según el servicio
+            if (serviceKey === 'seo') {
+              workflowVisual.innerHTML = `
+                <div class="mobile-visual-wrapper seo-visual-wrapper">
+                  <img src="./assets/seo2img.png" alt="SEO Aldia" class="workflow-image seo-img-fix">
+                  <div class="floating-metrics">
+                    <div class="metric-glass-card card-1">
+                      <div class="m-icon">${fluentChart}</div>
+                      <div class="m-content">
+                        <span class="m-value">+ 450%</span>
+                        <span class="m-label">CRECIMIENTO<br>ORGÁNICO</span>
+                      </div>
+                    </div>
+                    
+                    <div class="metric-glass-card card-2">
+                      <div class="m-icon">${fluentStar}</div>
+                      <div class="m-content">
+                        <span class="m-value">#1</span>
+                        <span class="m-label">POSICIÓN EN<br>GOOGLE</span>
+                      </div>
+                    </div>
+                    
+                    <div class="metric-glass-card card-3">
+                      <div class="m-icon">${fluentGrid}</div>
+                      <div class="m-content">
+                        <span class="m-value">98/100</span>
+                        <span class="m-label">PUNTUACIÓN<br>PAGESPEED</span>
+                      </div>
+                    </div>
+                    
+                    <div class="metric-glass-card card-4">
+                      <div class="m-icon">${fluentClock}</div>
+                      <div class="m-content">
+                        <span class="m-value">8.2K</span>
+                        <span class="m-label">KEYWORDS EN<br>EL TOP 10</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>`;
+            } else if (serviceKey === 'bbdd') {
+              workflowVisual.innerHTML = `
+                <div class="mobile-visual-wrapper bbdd-visual-wrapper">
+                  <img src="./assets/basesdedatosimg.png" alt="BBDD Aldia" class="workflow-image bbdd-img-fix">
+                  <div class="floating-metrics">
+                    <div class="metric-glass-card card-1">
+                      <div class="m-icon">${fluentCheckCircle}</div>
+                      <div class="m-content">
+                        <span class="m-value">24.300+</span>
+                        <span class="m-label">LEADS B2B<br>VERIFICADOS</span>
+                      </div>
+                    </div>
+                    
+                    <div class="metric-glass-card card-2">
+                      <div class="m-icon">${fluentChart}</div>
+                      <div class="m-content">
+                        <span class="m-value">100%</span>
+                        <span class="m-label">TASA DE<br>ENTREGABILIDAD</span>
+                      </div>
+                    </div>
+                    
+                    <div class="metric-glass-card card-3">
+                      <div class="m-icon">${fluentStar}</div>
+                      <div class="m-content">
+                        <span class="m-value">+ 120</span>
+                        <span class="m-label">REUNIONES<br>CONSEGUIDAS</span>
+                      </div>
+                    </div>
+                    
+                    <div class="metric-glass-card card-4">
+                      <div class="m-icon">${fluentPuzzle}</div>
+                      <div class="m-content">
+                        <span class="m-value">100%</span>
+                        <span class="m-label">SEGURIDAD Y<br>COMPLIANCE</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>`;
+            } else if (serviceKey === 'landing') {
+              workflowVisual.innerHTML = `
+                <div class="landing-component-wrapper">
+                  <!-- Mockup Central -->
+                  <div class="landing-mockup">
+                    <div class="mockup-browser">
+                      <div class="mockup-bar">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                      </div>
+                      <div class="mockup-screen">
+                        <div class="screen-hero">
+                          <div class="screen-tag">Aldia — Landing</div>
+                          <div class="screen-title">Convierte visitas en clientes</div>
+                          <div class="screen-subtitle">Tu negocio merece resultados reales</div>
+                          <div class="screen-cta">Consigue leads ahora →</div>
+                        </div>
+                        <div class="screen-form">
+                          <div class="form-field"></div>
+                          <div class="form-field"></div>
+                          <div class="form-btn"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Tarjetas flotantes en esquinas -->
+                  <div class="lp-badge lp-badge-tl">
+                    <div class="lp-badge-icon">${fluentChart}</div>
+                    <span>Diseño que convierte</span>
+                  </div>
+                  <div class="lp-badge lp-badge-tr">
+                    <div class="lp-badge-icon">${fluentStar}</div>
+                    <span>Copy persuasivo &amp; CRO</span>
+                  </div>
+                  <div class="lp-badge lp-badge-bl">
+                    <div class="lp-badge-icon">${fluentCheckCircle}</div>
+                    <span>Formularios inteligentes</span>
+                  </div>
+                  <div class="lp-badge lp-badge-br">
+                    <div class="lp-badge-icon">${fluentClock}</div>
+                    <span>Velocidad &amp; SEO técnico</span>
+                  </div>
+                </div>`;
+            } else if (serviceKey === 'integraciones') {
+              workflowVisual.innerHTML = `
+                <div class="crm-explanation-card">
+                  <h4>¿Qué es un CRM y por qué lo necesitas?</h4>
+                  <p>Un CRM <em>(Customer Relationship Management)</em> es el cerebro de tus ventas. No es solo una agenda; es un sistema que centraliza toda la información de tus clientes en un solo lugar.</p>
+                  
+                  <ul class="crm-benefits-mini">
+                    <li>
+                      <strong>Centralización:</strong> Control total de cada contacto, llamada y correo enviado por tu equipo.
+                    </li>
+                    <li>
+                      <strong>Automatización:</strong> Seguimiento inteligente de leads para que ninguna venta se pierda en el olvido.
+                    </li>
+                    <li>
+                      <strong>Escalabilidad:</strong> Gestiona cientos de prospectos con el mismo orden y calidad que tendrías con solo diez.
+                    </li>
+                  </ul>
+                </div>`;
+            } else if (serviceKey === 'corporativa') {
+              workflowVisual.innerHTML = `
+                <div class="comparison-columns-card">
+                  <div class="comparison-grid">
+                    <div class="comparison-col col-left">
+                      <div class="col-header">
+                        <h5>Landing Page</h5>
+                      </div>
+                      <ul class="comparison-list">
+                        <li><span class="c-icon">${fluentCheckCircle}</span> <span class="c-text">Foco principal: <strong>Ventas rápidas</strong></span></li>
+                        <li><span class="c-icon">${fluentCheckCircle}</span> <span class="c-text">Estructura de <strong>página única</strong></span></li>
+                        <li><span class="c-icon text-muted"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span> <span class="c-text text-muted">Contenido estático limitado</span></li>
+                      </ul>
+                    </div>
+                    
+                    <div class="comparison-col col-right">
+                      <div class="col-header featured-header">
+                        <span class="featured-badge">Premium</span>
+                        <h5>Web Corporativa</h5>
+                      </div>
+                      <ul class="comparison-list">
+                        <li><span class="c-icon">${fluentCheckCircle}</span> <span class="c-text"><strong>Presencia líder</strong> de marca a largo plazo</span></li>
+                        <li><span class="c-icon">${fluentCheckCircle}</span> <span class="c-text">Estructura <strong>multi-página</strong> escalable</span></li>
+                        <li><span class="c-icon">${fluentCheckCircle}</span> <span class="c-text">Conexión  con <strong>Bases de Datos</strong></span></li>
+                        <li><span class="c-icon">${fluentCheckCircle}</span> <span class="c-text">Arquitectura lista para <strong>control interno</strong></span></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>`;
+            } else if (serviceKey === 'automatizacion') {
+              workflowVisual.innerHTML = `
+                <div class="automation-cards-container">
+                  <div class="automation-card card-left">
+                    <div class="card-graphic">
+                      <div class="mock-search-bar">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.5 3a7.5 7.5 0 1 0 5.3 12.806l4.9 4.9a1 1 0 0 0 1.414-1.414l-4.9-4.9A7.5 7.5 0 0 0 10.5 3ZM5 10.5a5.5 5.5 0 1 1 11 0 5.5 5.5 0 0 1-11 0Z" fill="currentColor"/></svg>
+                        <span>Auditoría de procesos...</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="click-icon"><path d="M12 2a1 1 0 0 1 1 1v4a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1zm6 3a1 1 0 0 1 .707 1.707l-3 3a1 1 0 0 1-1.414-1.414l3-3A1 1 0 0 1 18 5zM6 5a1 1 0 0 1 .293.707l3 3a1 1 0 0 1-1.414 1.414l-3-3A1 1 0 0 1 6 5zm11.207 9.793a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L9 20.086l6.293-6.293a1 1 0 0 1 1.914.07v-.07z" fill="currentColor"/></svg>
+                      </div>
+                    </div>
+                    <div class="card-text">
+                      <h4>Automatización de Tareas</h4>
+                      <p>Optimiza tus procesos operativos y reduce tiempos manuales</p>
+                    </div>
+                  </div>
+                  
+                  <div class="automation-card card-right">
+                    <div class="card-graphic tools-graphic">
+                      <span class="tool-badge t-top">Zapier</span>
+                      <span class="tool-badge t-left">Make / N8N</span>
+                      <div class="center-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.14 12.936c.04-.306.06-.619.06-.936a7.68 7.68 0 0 0-.06-.936l2.112-1.656a.465.465 0 0 0 .113-.591l-2-3.464a.46.46 0 0 0-.568-.198l-2.484 1.003A7.545 7.545 0 0 0 14.7 4.962l-.375-2.648a.465.465 0 0 0-.462-.399h-4a.464.464 0 0 0-.462.399l-.375 2.648a7.544 7.544 0 0 0-1.611 1.196l-2.486-1.003a.46.46 0 0 0-.568.198l-2 3.464a.464.464 0 0 0 .114.59l2.11 1.657a7.684 7.684 0 0 0 0 1.872l-2.11 1.657a.464.464 0 0 0-.114.59l2 3.464c.125.218.39.308.568.198l2.486-1.003a7.544 7.544 0 0 0 1.611 1.196l.375 2.648a.464.464 0 0 0 .462.399h4c.22 0 .408-.157.462-.399l.375-2.648a7.545 7.545 0 0 0 1.613-1.196l2.484 1.003c.178.11.442.02.568-.198l2-3.464a.465.465 0 0 0-.113-.59l-2.111-1.657h-.001zm-7.14 2.564a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" fill="currentColor"/></svg>
+                      </div>
+                      <span class="tool-badge t-right">APIs</span>
+                      <span class="tool-badge t-bottom">Webhooks</span>
+                    </div>
+                    <div class="card-text">
+                      <h4>Herramientas de Integración</h4>
+                      <p>Conecta tu ecosistema digital para un flujo de trabajo sin fricción</p>
+                    </div>
+                  </div>
+                </div>`;
+            } else if (serviceKey === 'bots') {
+              workflowVisual.innerHTML = `
+                <div class="bot-visual-container">
+                  <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&q=80&w=1000" alt="Bot IA Aldia" class="bot-main-image">
+                  <div class="floating-chat-bubbles">
+                    <div class="chat-bubble user-bubble">
+                      <div class="chat-avatar">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                      </div>
+                      <div class="chat-text">Me gustaría agendar una reunión para mañana.</div>
+                    </div>
+                    <div class="chat-bubble bot-bubble">
+                      <div class="chat-text">¡Claro!  Tenemos hueco a las 10:00 o a las 16:00. ¿Qué prefieres?</div>
+                      <div class="chat-avatar bot-avatar">
+                        <img src="./assets/logo.png" alt="Aldia" style="width: 16px; height: 16px; filter: invert(1) brightness(2);">
+                      </div>
+                    </div>
+                  </div>
+                </div>`;
+            } else {
+              workflowVisual.innerHTML = `<img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000" alt="Workflow Aldia" class="workflow-image">`;
+            }
+
+            setTimeout(() => workflowVisual.classList.add('active'), 50);
+          }
+
+          // Activar animaciones de entrada (Reset)
+          setTimeout(() => {
+            titleEl.classList.add('active');
+            listEl.classList.add('active');
+          }, 50);
+        }, 400); // Mitad de tiempo para transiciones más rápidas
+      }
+
+      links.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+
+          // Cambiar clase activa en sidebar
+          links.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+
+          const serviceKey = link.getAttribute('data-service');
+          updateService(serviceKey);
+        });
+      });
+
+      // Manejar el cambio por hash (anclaje)
+      function handleHash() {
+        const hash = window.location.hash.substring(1); // quitar el #
+        if (hash && serviceData[hash]) {
+          // Si el hash coincide con una clave de servicio
+          updateService(hash);
+
+          // Actualizar estado activo en el sidebar
+          links.forEach(l => {
+            if (l.getAttribute('data-service') === hash) {
+              links.forEach(linkEl => linkEl.classList.remove('active'));
+              l.classList.add('active');
+            }
+          });
+
+          // Scroll suave a la sección de servicios si no estamos allí
+          const section = document.querySelector('.auto-servicios-section');
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }
+
+      // Escuchar cambios de hash y carga inicial
+      window.addEventListener('hashchange', handleHash);
+      if (window.location.hash) {
+        setTimeout(handleHash, 200); // Pequeño delay para asegurar carga
+      } else {
+        updateService('diagnostico');
+      }
+    });
+
+
+    // --- INTEGRACIONES: CRM SYNC DASHBOARD JS ---
+    let crmInterval;
+    function initFlowV2() {
+      const inflow = document.getElementById('crm-inflow');
+      if (!inflow) return;
+
+      const names = [
+        "Nueva Venta: 2.400€", "Alta de Cliente B2B", "Contrato Firmado", "Propuesta Aceptada", "Sincronización de Factura",
+        "Lead de Google Maps", "Reseña 5 Estrellas Detectada", "Ticket de Soporte Resuelto", "Click en Newsletter",
+        "Formulario Web: Nuevo Registro", "Reunión Agendada: Lunes 10h", "Pago Recibido: Stripe", "Nuevo Socio: Tech Hub",
+        "Alerta de Stock: Automatizada", "Campaña LinkedIn: 12 Leads", "WhatsApp Bot: Venta Cerrada",
+        "Carrito Rescatado: Boutique X", "Auditoría SEO Generada", "Backup de BBDD: Completado", "Sincronización Hubspot",
+        "Lead Verificado: Real Estate", "Notificación: Dashboard OK", "Meta Ads: 5 Conversiones", "Web: Chat Activo"
+      ];
+      const icons = ["$", "C", "F", "A", "S", "G", "R", "T", "N", "W", "H", "P", "S", "!", "L", "W", "K", "O", "B", "H", "V", "D", "M", "A"];
+
+      clearInterval(crmInterval);
+      crmInterval = setInterval(() => {
+        const idx = Math.floor(Math.random() * names.length);
+        const newLead = document.createElement('div');
+        newLead.className = 'crm-lead-card';
+        newLead.innerHTML = `<div class="lead-icon">${icons[idx]}</div> <span>${names[idx]}</span>`;
+        inflow.prepend(newLead);
+
+        if (inflow.children.length > 5) {
+          inflow.removeChild(inflow.lastChild);
+        }
+      }, 2500);
+    }
+
+    // --- AUTOMATIZACION: AI ORCHESTRATOR JS ---
+    function initAutoVisual() {
+      const svg = document.getElementById('orchestrator-svg');
+      if (!svg) return;
+      const container = document.getElementById('orchestrator-visual-area');
+      const core = document.querySelector('.ia-node-core');
+      const nodes = document.querySelectorAll('.ia-peripheral-node');
+
+      const updateLines = () => {
+        svg.innerHTML = '';
+        const coreRect = core.getBoundingClientRect();
+        const contRect = container.getBoundingClientRect();
+        const coreX = coreRect.left + coreRect.width / 2 - contRect.left;
+        const coreY = coreRect.top + coreRect.height / 2 - contRect.top;
+
+        nodes.forEach((node) => {
+          const rect = node.getBoundingClientRect();
+          const nodeX = rect.left + rect.width / 2 - contRect.left;
+          const nodeY = rect.top + rect.height / 2 - contRect.top;
+
+          const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          line.setAttribute("x1", coreX); line.setAttribute("y1", coreY);
+          line.setAttribute("x2", nodeX); line.setAttribute("y2", nodeY);
+          line.setAttribute("stroke", "rgba(0,0,0,0.05)");
+          line.setAttribute("stroke-width", "1");
+          svg.appendChild(line);
+
+          const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+          dot.setAttribute("r", "3");
+          dot.setAttribute("fill", "#000");
+
+          const animX = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+          animX.setAttribute("attributeName", "cx");
+          animX.setAttribute("from", coreX); animX.setAttribute("to", nodeX);
+          animX.setAttribute("dur", (2 + Math.random() * 2) + "s");
+          animX.setAttribute("repeatCount", "indefinite");
+
+          const animY = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+          animY.setAttribute("attributeName", "cy");
+          animY.setAttribute("from", coreY); animY.setAttribute("to", nodeY);
+          animY.setAttribute("dur", animX.getAttribute("dur"));
+          animY.setAttribute("repeatCount", "indefinite");
+
+          dot.appendChild(animX); dot.appendChild(animY);
+          svg.appendChild(dot);
+        });
+      };
+
+      updateLines();
+      window.addEventListener('resize', updateLines);
+
+      const speedVal = document.getElementById('ia-speed-val');
+      const speeds = ["SYNC", "LOGIC", "DATA", "FLOW"];
+      setInterval(() => {
+        if (speedVal) speedVal.textContent = speeds[Math.floor(Math.random() * speeds.length)];
+      }, 2000);
+    }
+
+    // --- POWER PLATFORM: OS ENGINE JS ---
+    function initPowerOS() {
+      const navItems = document.querySelectorAll('.os-nav-item');
+      const osTitle = document.getElementById('os-title');
+      const osDesc = document.getElementById('os-desc');
+
+      const osData = {
+        apps: {
+          title: "Power Apps",
+          desc: "Aplicaciones móviles y de escritorio personalizadas que se conectan a tus datos. Digitaliza formularios, inventarios y procesos de campo en tiempo récord."
+        },
+        automate: {
+          title: "Power Automate",
+          desc: "Automatiza flujos de trabajo repetitivos entre tus aplicaciones y servicios favoritos para recibir notificaciones, sincronizar archivos y recopilar datos."
+        },
+        bi: {
+          title: "Power BI",
+          desc: "Une tus datos no relacionados para crear información visualmente atractiva, interactiva y coherente. Toma decisiones basadas en datos reales."
+        },
+        copilot: {
+          title: "Copilot Studio",
+          desc: "Crea potentes agentes de IA que respondan a las preguntas de tus clientes y empleados basándose en tu propia base de conocimiento corporativa."
+        }
+      };
+
+      navItems.forEach(item => {
+        item.addEventListener('click', () => {
+          navItems.forEach(i => i.classList.remove('active'));
+          item.classList.add('active');
+          const key = item.getAttribute('data-os');
+          osTitle.style.opacity = 0;
+          osDesc.style.opacity = 0;
+          setTimeout(() => {
+            osTitle.textContent = osData[key].title;
+            osDesc.textContent = osData[key].desc;
+            osTitle.style.opacity = 1;
+            osDesc.style.opacity = 1;
+          }, 300);
+        });
+      });
+    }
+  </script>
+  <!-- ========== SECTION: FAQ ========== -->
+  <section class="faq-section">
+    <div class="faq-container">
+      <div class="faq-left reveal-up">
+        <p class="faq-tag">Especialistas en Legal-Tech</p>
+        <h2 class="faq-title">Preguntas frecuentes<br>sobre Aldia</h2>
+        <a href="index.html#contact-section" class="faq-btn">Consultar mi caso</a>
+      </div>
+
+      <div class="faq-list reveal-up delay-1">
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>¿En qué tipo de proyectos estáis especializados?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            Nos especializamos en la optimización y automatización de procesos para sectores de alta demanda. Nuestra
+            experiencia principal se centra en <strong>bufetes de extranjería, agencias de marketing y PYMEs</strong>
+            que buscan escalar. Ayudamos a cualquier negocio con carga operativa a transformar sus procesos manuales en
+            sistemas inteligentes que ahorran tiempo y aumentan la facturación.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>¿Cómo es el proceso para empezar nuestro proyecto?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            El proceso es sencillo: agendamos una sesión de diagnóstico para analizar tu flujo actual de trabajo y tu
+            sistema de captación. Identificamos dónde se pierden los clientes y qué tareas repetitivas consumen el
+            tiempo de tu equipo para proponerte una solución técnica a medida, clara y sin compromiso.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>¿Ofrecéis soluciones para la captación de nuevos clientes?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            Sí. Dominamos las estrategias de SEO y publicidad digital para posicionarte en las búsquedas de mayor
+            intención de compra en tu sector. Diseñamos ecosistemas que no solo traen tráfico, sino que filtran a los
+            interesados automáticamente para que solo atiendas a los perfiles con mayor probabilidad de cierre.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>¿Podré gestionar yo mismo los contenidos de mi plataforma?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            Totalmente. Desarrollamos herramientas intuitivas y fáciles de usar. Podrás subir nuevos servicios,
+            actualizar precios o publicar noticias al instante y sin depender de nosotros. Tras la entrega, te damos una
+            formación básica para que tengas total independencia.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>¿Cómo funcionan vuestros Agentes de IA personalizados?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            Implementamos asistentes inteligentes que realizan el trabajo pesado: responden dudas frecuentes por
+            WhatsApp o Web de forma inmediata y cualifican al lead antes de pasarlo a un agente humano. Esto permite que
+            tu negocio atienda 24/7 sin aumentar los costes de personal.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>¿Qué tipo de soporte ofrecéis una vez terminado el trabajo?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            Tu tecnología debe ser un motor, no un problema. Ofrecemos planes de mantenimiento opcionales que incluyen
+            soporte técnico prioritario, actualizaciones de seguridad, copias de seguridad automáticas y mejoras
+            continuas en tus sistemas para asegurar que tu operativa nunca se detenga.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>¿Cómo se estructuran los pagos del servicio?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            Para proyectos cerrados (Web, Software a medida), trabajamos por hitos de entrega. Para servicios continuos
+            como captación de leads, IA o mantenimiento técnico, establecemos una suscripción fija mensual acordada
+            previamente, lo que te permite tener un control total del presupuesto.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3>¿Cuánto tiempo tardáis en entregar una solución completa?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            Depende de la envergadura del proyecto. Un sistema de captación optimizado puede estar operativo en 15 días,
+            mientras que una automatización integral de procesos suele llevar entre 4 y 6 semanas. Siempre establecemos
+            un cronograma detallado desde el primer día para cumplir con los plazos.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+
+        // Cerrar todos los demás
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+
+        // Si no estaba activo, lo activamos (toggle manual)
+        if (!isActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+  </script>
+
+  <script src="./scripts/globe.js"></script>
+
+  <footer class="main-footer">
+    <div class="footer-container">
+
+      <!-- Logo arriba a la izquierda -->
+      <div class="footer-logo">
+        <img src="./assets/logo.png" alt="Aldia Logo">
+      </div>
+
+      <div class="footer-top">
+        <p class="footer-services-title">Servicios</p>
+        <div class="footer-services-grid">
+          <div class="footer-services-col">
+            <a href="#">Diagnóstico Personalizado</a>
+            <a href="#">Mejora de SEO</a>
+            <a href="#">Bases de Datos B2B</a>
+          </div>
+          <div class="footer-services-col">
+            <a href="#">Landing Pages</a>
+            <a href="#">Web Corporativa</a>
+            <a href="#">Bots con IA</a>
+          </div>
+          <div class="footer-services-col">
+            <a href="#">Automatización de Procesos</a>
+            <a href="#">Integraciones de Sistemas</a>
+            <a href="#">Microsoft Power Platform</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-middle">
+        <div class="footer-social">
+          <a href="#" aria-label="YouTube">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+            </svg>
+          </a>
+          <a href="#" aria-label="TikTok">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12.525.02c1.31-.032 2.612-.019 3.91-.01 0 1.51.102 3.033.914 4.363.955.02 1.916 0 2.873.01.01 1.488-.005 2.975-.005 4.463-.996.012-1.99-.028-2.97-.245v5.5c-.015 2.152-1.4 4.305-3.5 4.8-2.298.58-4.99-.41-5.8-2.6-1.07-2.31.25-5.59 2.8-6.1.18-.033.36-.05.545-.06.01-1.396 0-2.79.01-4.187-.83-.02-1.636.192-2.36.52a6.38 6.38 0 0 0-3.1 3.2 6.1 6.1 0 0 0 .1 5.3 6.3 6.3 0 0 0 3.7 3.4c2.8.9 5.8-.3 7.1-2.9.2-.5.3-1 .3-1.6V0h-.608z" />
+            </svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.332 3.608 1.308.975.975 1.245 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.063 1.366-.333 2.633-1.308 3.608-.975.975-2.241 1.245-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.063-2.633-.333-3.608-1.308-.975-.975-1.245-2.242-1.308-3.608-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.332-2.633 1.308-3.608.975-.975 2.242-1.245 3.608-1.308 1.266-.058 1.646-.07 4.85-.07zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12s.014 3.667.072 4.947c.2 4.353 2.612 6.766 6.97 6.965C8.333 23.986 8.741 24 12 24s3.667-.014 4.947-.072c4.353-.2 6.766-2.612 6.965-6.97.058-1.28.072-1.688.072-4.947s-.014-3.667-.072-4.947c-.2-4.353-2.612-6.766-6.97-6.965C15.667.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
+            </svg>
+          </a>
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-legal">
+          <a href="#">Política de privacidad</a>
+          <a href="#">Política de Cookies</a>
+          <a href="#">Condiciones Generales</a>
+          <a href="#">Aviso legal</a>
+        </div>
+        <div class="footer-copyright">
+          © Aldia Copyright 2026
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Aldia Global Components -->
+  <link rel="stylesheet" href="./styles/chat.css">
+  <script src="./scripts/chat.js"></script>
+  <script src="./scripts/preload.js"></script>
+</body>
+
+</html>

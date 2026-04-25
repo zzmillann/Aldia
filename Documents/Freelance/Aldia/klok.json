@@ -1,0 +1,271 @@
+{
+    "name": "Bokun - Insertar solo filas nuevas en plantilla",
+    "nodes": [
+        {
+            "parameters": {},
+            "id": "a1b2c3d4-0001-0001-0001-000000000001",
+            "name": "Start manual",
+            "type": "n8n-nodes-base.manualTrigger",
+            "typeVersion": 1,
+            "position": [
+                -400,
+                0
+            ]
+        },
+        {
+            "parameters": {
+                "documentId": {
+                    "__rl": true,
+                    "value": "REEMPLAZA_ID_SHEET_BOKUN",
+                    "mode": "id"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "value": "Hoja1",
+                    "mode": "name"
+                },
+                "options": {}
+            },
+            "id": "a1b2c3d4-0001-0001-0001-000000000002",
+            "name": "Leer Bokun (130k filas)",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4.5,
+            "position": [
+                -180,
+                -120
+            ],
+            "credentials": {
+                "googleSheetsOAuth2Api": {
+                    "id": "REEMPLAZA_ID_CREDENCIAL",
+                    "name": "Google Sheets OAuth2"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "documentId": {
+                    "__rl": true,
+                    "value": "REEMPLAZA_ID_SHEET_PLANTILLA",
+                    "mode": "id"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "value": "Hoja1",
+                    "mode": "name"
+                },
+                "options": {}
+            },
+            "id": "a1b2c3d4-0001-0001-0001-000000000003",
+            "name": "Leer Plantilla (referencia)",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4.5,
+            "position": [
+                -180,
+                120
+            ],
+            "credentials": {
+                "googleSheetsOAuth2Api": {
+                    "id": "REEMPLAZA_ID_CREDENCIAL",
+                    "name": "Google Sheets OAuth2"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "mode": "combine",
+                "combineBy": "combineAll",
+                "options": {}
+            },
+            "id": "a1b2c3d4-0001-0001-0001-000000000004",
+            "name": "Merge para Code",
+            "type": "n8n-nodes-base.merge",
+            "typeVersion": 3,
+            "position": [
+                60,
+                0
+            ]
+        },
+        {
+            "parameters": {
+                "mode": "runOnceForAllItems",
+                "language": "javaScript",
+                "jsCode": "// Recibe dos inputs: Bokun (input 0) y Plantilla (input 1)\n// Estrategia: Set de booking_id de la plantilla => filtrado O(1)\n\nconst bokunItems = $('Leer Bokun (130k filas)').all();\nconst plantillaItems = $('Leer Plantilla (referencia)').all();\n\n// 1) Construimos el Set con los booking_id de la plantilla\nconst plantillaKeys = new Set();\nfor (const item of plantillaItems) {\n  const key = item.json.booking_id;\n  if (key !== undefined && key !== null && key !== '') {\n    // Normalizamos a string y sin espacios para evitar falsos negativos\n    plantillaKeys.add(String(key).trim());\n  }\n}\n\n// 2) Filtramos las filas de Bokun cuyo booking_id NO estÃ¡ en la plantilla\nconst nuevas = [];\nfor (const item of bokunItems) {\n  const key = item.json.booking_id;\n  if (key === undefined || key === null || key === '') continue; // descartar filas sin id\n  const keyNorm = String(key).trim();\n  if (!plantillaKeys.has(keyNorm)) {\n    nuevas.push({ json: item.json });\n  }\n}\n\nconsole.log(`Bokun: ${bokunItems.length} | Plantilla: ${plantillaItems.length} | Nuevas a insertar: ${nuevas.length}`);\n\nreturn nuevas;"
+            },
+            "id": "a1b2c3d4-0001-0001-0001-000000000005",
+            "name": "Filtrar filas nuevas",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                280,
+                0
+            ]
+        },
+        {
+            "parameters": {
+                "batchSize": 500,
+                "options": {}
+            },
+            "id": "a1b2c3d4-0001-0001-0001-000000000006",
+            "name": "Split In Batches 500",
+            "type": "n8n-nodes-base.splitInBatches",
+            "typeVersion": 3,
+            "position": [
+                500,
+                0
+            ]
+        },
+        {
+            "parameters": {
+                "operation": "append",
+                "documentId": {
+                    "__rl": true,
+                    "value": "REEMPLAZA_ID_SHEET_PLANTILLA",
+                    "mode": "id"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "value": "Hoja1",
+                    "mode": "name"
+                },
+                "columns": {
+                    "mappingMode": "autoMapInputData",
+                    "value": {},
+                    "matchingColumns": [],
+                    "schema": []
+                },
+                "options": {}
+            },
+            "id": "a1b2c3d4-0001-0001-0001-000000000007",
+            "name": "Append a Plantilla",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4.5,
+            "position": [
+                720,
+                0
+            ],
+            "credentials": {
+                "googleSheetsOAuth2Api": {
+                    "id": "REEMPLAZA_ID_CREDENCIAL",
+                    "name": "Google Sheets OAuth2"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "amount": 1,
+                "unit": "seconds"
+            },
+            "id": "a1b2c3d4-0001-0001-0001-000000000008",
+            "name": "Wait 1s (rate limit)",
+            "type": "n8n-nodes-base.wait",
+            "typeVersion": 1.1,
+            "position": [
+                940,
+                0
+            ],
+            "webhookId": "a1b2c3d4-wait-webhook"
+        }
+    ],
+    "connections": {
+        "Start manual": {
+            "main": [
+                [
+                    {
+                        "node": "Leer Bokun (130k filas)",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "Leer Plantilla (referencia)",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Leer Bokun (130k filas)": {
+            "main": [
+                [
+                    {
+                        "node": "Merge para Code",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Leer Plantilla (referencia)": {
+            "main": [
+                [
+                    {
+                        "node": "Merge para Code",
+                        "type": "main",
+                        "index": 1
+                    }
+                ]
+            ]
+        },
+        "Merge para Code": {
+            "main": [
+                [
+                    {
+                        "node": "Filtrar filas nuevas",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Filtrar filas nuevas": {
+            "main": [
+                [
+                    {
+                        "node": "Split In Batches 500",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Split In Batches 500": {
+            "main": [
+                [
+                    {
+                        "node": "Append a Plantilla",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Append a Plantilla": {
+            "main": [
+                [
+                    {
+                        "node": "Wait 1s (rate limit)",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Wait 1s (rate limit)": {
+            "main": [
+                [
+                    {
+                        "node": "Split In Batches 500",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "settings": {
+        "executionOrder": "v1",
+        "saveDataSuccessExecution": "all",
+        "saveExecutionProgress": true,
+        "saveManualExecutions": true
+    },
+    "pinData": {}
+}
