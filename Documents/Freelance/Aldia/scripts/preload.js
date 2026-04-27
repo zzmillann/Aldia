@@ -31,3 +31,34 @@ if (sessionStorage.getItem("aldiaPreloaderShown")) {
     }, 1800); 
   });
 }
+
+// Smart Iframe Loader (Lazy Load on Focus)
+document.addEventListener("DOMContentLoaded", () => {
+  const lazyIframes = document.querySelectorAll(".lazy-iframe");
+
+  if ("IntersectionObserver" in window) {
+    const iframeObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const iframe = entry.target;
+          if (iframe.dataset.src) {
+            iframe.src = iframe.dataset.src;
+            iframe.removeAttribute("data-src"); // Evitar recargas innecesarias
+          }
+          iframeObserver.unobserve(iframe);
+        }
+      });
+    }, {
+      rootMargin: "0px" // Carga exactamente al entrar en pantalla
+    });
+
+    lazyIframes.forEach((iframe) => iframeObserver.observe(iframe));
+  } else {
+    // Fallback para navegadores antiguos
+    lazyIframes.forEach((iframe) => {
+      if (iframe.dataset.src) {
+        iframe.src = iframe.dataset.src;
+      }
+    });
+  }
+});

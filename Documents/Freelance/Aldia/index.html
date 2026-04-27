@@ -26,198 +26,200 @@
 
 <body>
 
-<!-- Global Preloader -->
-<div class="aldia-preloader" id="aldiaPreloader">
-  <div class="preload-brand">
-    <span class="preload-text">aldia</span><div class="preload-dot"></div>
+  <!-- Global Preloader -->
+  <div class="aldia-preloader" id="aldiaPreloader">
+    <div class="preload-brand">
+      <span class="preload-text">aldia</span>
+      <div class="preload-dot"></div>
+    </div>
   </div>
-</div>
 
-<!-- ========== NAVBAR ========== -->
-<header class="navbar">
-  <nav class="nav-container">
-    <!-- Píldora de navegación (incluye el logo al principio) -->
-    <ul class="nav-links">
-      <li>
-        <a href="index.html" class="nav-logo-link">
-          <img src="./assets/logo.png" alt="Aldia Logo" class="nav-logo">
-        </a>
-      </li>
-      <li><a href="index.html">Inicio</a></li>
-      <li class="has-dropdown">
-        <a href="servicios.html">Servicios </a>
-        <div class="dropdown-menu">
-          <span class="dropdown-title">Nuestros Servicios</span>
-          <ul class="dropdown-list">
-            <li><a href="servicios.html#diagnostico" class="dropdown-item">Diagnóstico Personalizado </a></li>
-            <li><a href="servicios.html#automatizacion" class="dropdown-item">Automatización de Procesos </a></li>
-            <li><a href="servicios.html#bots" class="dropdown-item">Bots con IA </a></li>
-            <li><a href="servicios.html#corporativa" class="dropdown-item">Web Corporativa </a></li>
-            <li><a href="servicios.html#powerapps" class="dropdown-item">Microsoft Power Platform </a></li>
-          </ul>
-        </div>
-      </li>
-      <li><a href="aldiaooptima.html">Aldia Óptima</a></li>
-      <li><a href="#contact-section">Contacto</a></li>
-    </ul>
-  </nav>
-</header>
+  <!-- ========== NAVBAR ========== -->
+  <header class="navbar">
+    <nav class="nav-container">
+      <!-- Píldora de navegación (incluye el logo al principio) -->
+      <ul class="nav-links">
+        <li>
+          <a href="index.html" class="nav-logo-link">
+            <img src="./assets/logo.png" alt="Aldia Logo" class="nav-logo">
+          </a>
+        </li>
+        <li><a href="index.html">Inicio</a></li>
+        <li class="has-dropdown">
+          <a href="servicios.html">Servicios </a>
+          <div class="dropdown-menu">
+            <span class="dropdown-title">Nuestros Servicios</span>
+            <ul class="dropdown-list">
+              <li><a href="servicios.html#diagnostico" class="dropdown-item">Diagnóstico Personalizado </a></li>
+              <li><a href="servicios.html#automatizacion" class="dropdown-item">Automatización de Procesos </a></li>
+              <li><a href="servicios.html#bots" class="dropdown-item">Bots con IA </a></li>
+              <li><a href="servicios.html#corporativa" class="dropdown-item">Web Corporativa </a></li>
+              <li><a href="servicios.html#powerapps" class="dropdown-item">Microsoft Power Platform </a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a href="aldiaooptima.html">Aldia Óptima</a></li>
+        <li><a href="#contact-section">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<!-- ========== MOBILE NAV ========== -->
-<button class="mobile-toggle" id="menuToggle">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <line x1="3" y1="12" x2="21" y2="12"></line>
-    <line x1="3" y1="6" x2="21" y2="6"></line>
-    <line x1="3" y1="18" x2="21" y2="18"></line>
-  </svg>
-</button>
+  <!-- ========== MOBILE NAV ========== -->
+  <button class="mobile-toggle" id="menuToggle">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </button>
 
-<div class="mobile-overlay" id="mobileOverlay">
-  <div class="mobile-overlay-header">
-    <img src="./assets/logo.png" alt="Aldia Logo" class="mobile-logo">
-    <button class="close-mobile-menu" id="closeMenu">&times;</button>
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-overlay-header">
+      <img src="./assets/logo.png" alt="Aldia Logo" class="mobile-logo">
+      <button class="close-mobile-menu" id="closeMenu">&times;</button>
+    </div>
+    <nav>
+      <ul class="mobile-nav-links">
+        <li><a href="index.html" class="active">Inicio</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="aldiaooptima.html">Aldia Óptima</a></li>
+        <li><a href="index.html#contact-section">Contacto</a></li>
+      </ul>
+    </nav>
   </div>
-  <nav>
-    <ul class="mobile-nav-links">
-      <li><a href="index.html" class="active">Inicio</a></li>
-      <li><a href="servicios.html">Servicios</a></li>
-      <li><a href="aldiaooptima.html">Aldia Óptima</a></li>
-      <li><a href="index.html#contact-section">Contacto</a></li>
-    </ul>
-  </nav>
-</div>
 
-<script>
-  const menuToggle = document.getElementById('menuToggle');
-  const mobileOverlay = document.getElementById('mobileOverlay');
-  const closeMenu = document.getElementById('closeMenu');
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    const closeMenu = document.getElementById('closeMenu');
 
-  menuToggle.addEventListener('click', () => {
-    mobileOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  });
+    menuToggle.addEventListener('click', () => {
+      mobileOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
 
-  closeMenu.addEventListener('click', () => {
-    mobileOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-  });
-
-  document.querySelectorAll('.mobile-nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
+    closeMenu.addEventListener('click', () => {
       mobileOverlay.classList.remove('active');
       document.body.style.overflow = '';
     });
-  });
-</script>
 
-<!-- ========== HERO SECTION ========== -->
-<section class="hero">
-  <img src="./assets/imagensudaderamillan.png" alt="Aldia Automatización" class="hero-image" fetchpriority="high">
-  <div class="hero-content">
-    <h1>Automatiza hoy. Lidera mañana.</h1>
-    <p>Transformamos tus cuellos de botella en flujos inteligentes. Aumenta tu productividad, elimina el trabajo
-      repetitivo y despega hacia el futuro.</p>
-  </div>
-</section>
+    document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+  </script>
 
-<!-- ========== ABOUT SECTION (Segunda vista) ========== -->
-<section class="about-section">
-  <div class="about-container">
-    <span class="about-tag reveal-up">Nuestro enfoque</span>
-    <h2 class="about-title reveal-up">Construimos ecosistemas tecnológicos para <span class="highlight">escalar tu
-        negocio</span>.</h2>
+  <!-- ========== HERO SECTION ========== -->
+  <section class="hero">
+    <img src="./assets/imagensudaderamillan.png" alt="Aldia Automatización" class="hero-image" fetchpriority="high">
+    <div class="hero-content">
+      <h1>Automatiza hoy. Lidera mañana.</h1>
+      <p>Transformamos tus cuellos de botella en flujos inteligentes. Aumenta tu productividad, elimina el trabajo
+        repetitivo y despega hacia el futuro.</p>
+    </div>
+  </section>
 
-    <div class="about-grid">
-      <div class="about-text reveal-up">
-        <p>La mayoría de empresas utilizan decenas de plataformas desconectadas. Cada una añade coste, tiempo de
-          aprendizaje y fricción operativa constante a sus equipos.</p>
-        <p>Como <strong>agencia de software especializada</strong>, diseñamos webs eficientes y unificamos todos tus
-          procesos mediante <strong>automatizaciones con IA</strong>. Un solo flujo digital, cero herramientas
-          innecesarias y máximo retorno de inversión.</p>
-        <img src="./assets/fotorandoms.png" alt="Aldia Team" class="about-image">
+  <!-- ========== ABOUT SECTION (Segunda vista) ========== -->
+  <section class="about-section">
+    <div class="about-container">
+      <span class="about-tag reveal-up">Nuestro enfoque</span>
+      <h2 class="about-title reveal-up">Construimos ecosistemas tecnológicos para <span class="highlight">escalar tu
+          negocio</span>.</h2>
+
+      <div class="about-grid">
+        <div class="about-text reveal-up">
+          <p>La mayoría de empresas utilizan decenas de plataformas desconectadas. Cada una añade coste, tiempo de
+            aprendizaje y fricción operativa constante a sus equipos.</p>
+          <p>Como <strong>agencia de software especializada</strong>, diseñamos webs eficientes y unificamos todos tus
+            procesos mediante <strong>automatizaciones con IA</strong>. Un solo flujo digital, cero herramientas
+            innecesarias y máximo retorno de inversión.</p>
+          <img src="./assets/fotorandoms.png" alt="Aldia Team" class="about-image">
+        </div>
+
+        <div class="about-features">
+          <div class="feature-item reveal-up delay-1">
+            <span class="feature-dot"></span>
+            <div>
+              <h3>Automatizaciones con IA</h3>
+              <p>Procesos cognitivos y tareas repetitivas que se ejecutan solos, ahorrándote cientos de horas.</p>
+            </div>
+          </div>
+          <div class="feature-item reveal-up delay-2">
+            <span class="feature-dot"></span>
+            <div>
+              <h3>Diseño y Desarrollo Web</h3>
+              <p>Plataformas que no solo deslumbran visualmente, sino que están optimizadas a medida para convertir y
+                ser extremadamente rápidas.</p>
+            </div>
+          </div>
+          <div class="feature-item reveal-up delay-3">
+            <span class="feature-dot"></span>
+            <div>
+              <h3>Sistemas Integrados</h3>
+              <p>Conectamos las piezas de tu negocio creando plataformas inteligentes. Adiós a copiar y pegar datos
+                manualmente.</p>
+            </div>
+          </div>
+          <div class="feature-item reveal-up delay-4">
+            <span class="feature-dot"></span>
+            <div>
+              <h3>Software enfocado al ROI</h3>
+              <p>Desarrollamos soluciones 100% pragmáticas diseñadas por operadores, no por teóricos. Solo implementamos
+                lo que hace ganar dinero.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== METRICS SECTION ========== -->
+  <section class="metrics-section">
+    <div class="metrics-container">
+
+      <div class="metric-card reveal-up delay-1">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" width="24" height="24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <h3>+ <span class="counter-up" data-target="15000">0</span></h3>
+        <p>Horas manuales ahorradas</p>
       </div>
 
-      <div class="about-features">
-        <div class="feature-item reveal-up delay-1">
-          <span class="feature-dot"></span>
-          <div>
-            <h3>Automatizaciones con IA</h3>
-            <p>Procesos cognitivos y tareas repetitivas que se ejecutan solos, ahorrándote cientos de horas.</p>
-          </div>
-        </div>
-        <div class="feature-item reveal-up delay-2">
-          <span class="feature-dot"></span>
-          <div>
-            <h3>Diseño y Desarrollo Web</h3>
-            <p>Plataformas que no solo deslumbran visualmente, sino que están optimizadas a medida para convertir y
-              ser extremadamente rápidas.</p>
-          </div>
-        </div>
-        <div class="feature-item reveal-up delay-3">
-          <span class="feature-dot"></span>
-          <div>
-            <h3>Sistemas Integrados</h3>
-            <p>Conectamos las piezas de tu negocio creando plataformas inteligentes. Adiós a copiar y pegar datos
-              manualmente.</p>
-          </div>
-        </div>
-        <div class="feature-item reveal-up delay-4">
-          <span class="feature-dot"></span>
-          <div>
-            <h3>Software enfocado al ROI</h3>
-            <p>Desarrollamos soluciones 100% pragmáticas diseñadas por operadores, no por teóricos. Solo implementamos
-              lo que hace ganar dinero.</p>
-          </div>
-        </div>
+      <div class="metric-card reveal-up delay-2">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" width="24" height="24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z">
+          </path>
+        </svg>
+        <h3>+ <span class="counter-up" data-target="40">0</span></h3>
+        <p>Sistemas integrados</p>
       </div>
+
+      <div class="metric-card reveal-up delay-3">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" width="24" height="24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941">
+          </path>
+        </svg>
+        <h3>+ <span class="counter-up" data-target="250">0</span>%</h3>
+        <p>Incremento de ROI promedio</p>
+      </div>
+
+      <div class="metric-card reveal-up delay-4">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" width="24" height="24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.492-3.396c.339-.462.612-1.059.813-1.688m-3.305 5.084l-6.658 6.658a2.652 2.652 0 01-3.75-3.75l6.658-6.658m10.155-2.886l1.832-1.832a2.652 2.652 0 00-3.75-3.75l-1.832 1.832m0 0l-2.492 3.396c-.339.462-.612 1.059-.813 1.688m3.305-5.084a5.25 5.25 0 11-7.424 7.424 5.25 5.25 0 017.424-7.424z">
+          </path>
+        </svg>
+        <h3><span class="counter-up" data-target="100">0</span>%</h3>
+        <p>Fiabilidad de los flujos automáticos</p>
+      </div>
+
     </div>
-  </div>
-</section>
-
-<!-- ========== METRICS SECTION ========== -->
-<section class="metrics-section">
-  <div class="metrics-container">
-
-    <div class="metric-card reveal-up delay-1">
-      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" width="24" height="24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-      </svg>
-      <h3>+ <span class="counter-up" data-target="15000">0</span></h3>
-      <p>Horas manuales ahorradas</p>
-    </div>
-
-    <div class="metric-card reveal-up delay-2">
-      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" width="24" height="24">
-        <path stroke-linecap="round" stroke-linejoin="round"
-          d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z">
-        </path>
-      </svg>
-      <h3>+ <span class="counter-up" data-target="40">0</span></h3>
-      <p>Sistemas integrados</p>
-    </div>
-
-    <div class="metric-card reveal-up delay-3">
-      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" width="24" height="24">
-        <path stroke-linecap="round" stroke-linejoin="round"
-          d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941">
-        </path>
-      </svg>
-      <h3>+ <span class="counter-up" data-target="250">0</span>%</h3>
-      <p>Incremento de ROI promedio</p>
-    </div>
-
-    <div class="metric-card reveal-up delay-4">
-      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" width="24" height="24">
-        <path stroke-linecap="round" stroke-linejoin="round"
-          d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.492-3.396c.339-.462.612-1.059.813-1.688m-3.305 5.084l-6.658 6.658a2.652 2.652 0 01-3.75-3.75l6.658-6.658m10.155-2.886l1.832-1.832a2.652 2.652 0 00-3.75-3.75l-1.832 1.832m0 0l-2.492 3.396c-.339.462-.612 1.059-.813 1.688m3.305-5.084a5.25 5.25 0 11-7.424 7.424 5.25 5.25 0 017.424-7.424z">
-        </path>
-      </svg>
-      <h3><span class="counter-up" data-target="100">0</span>%</h3>
-      <p>Fiabilidad de los flujos automáticos</p>
-    </div>
-
-  </div>
-</section>
+  </section>
 
   <!-- ========== PROCESS SECTION ========== -->
   <section class="process-section" id="process-section">
@@ -235,25 +237,33 @@
       <!-- Lado Derecho (Grid 2x2 de los Pasos) -->
       <div class="process-grid">
         <div class="process-card reveal-up delay-1">
-          <span class="process-num">01</span>
+          <div class="process-icon-container">
+            <span class="process-num">01</span>
+          </div>
           <h3>Sistema Aldia Óptima</h3>
           <p>Nuestra diagnóstico operativo exclusivo. Mapeamos tu empresa al detalle para detectar cuellos de botella y
             qué tareas exactas podemos delegar a la IA hoy mismo.</p>
         </div>
         <div class="process-card reveal-up delay-2">
-          <span class="process-num">02</span>
+          <div class="process-icon-container">
+            <span class="process-num">02</span>
+          </div>
           <h3>Arquitectura a Medida</h3>
           <p>Diseñamos sobre tus necesidades, no sobre un catálogo estándar. Elegimos las herramientas que tu empresa
             requiere para automatizarse.</p>
         </div>
         <div class="process-card reveal-up delay-3">
-          <span class="process-num">03</span>
+          <div class="process-icon-container">
+            <span class="process-num">03</span>
+          </div>
           <h3>Implementación Ágil</h3>
           <p>Desplegamos el software y los flujos automáticos sin frenar tu ritmo operativo actual para una inyección de
             productividad directa.</p>
         </div>
         <div class="process-card reveal-up delay-4">
-          <span class="process-num">04</span>
+          <div class="process-icon-container">
+            <span class="process-num">04</span>
+          </div>
           <h3>Tracción y Escalabilidad</h3>
           <p>Monitoreo ininterrumpido. A medida que captas más negocio, el software soporta el volumen sin que tengas
             que contratar más personal base.</p>
@@ -263,145 +273,171 @@
     </div>
   </section>
 
-<!-- ========== VIDEO / TESTIMONIES SECTION ========== -->
-<section class="video-section">
-  <div class="video-container">
-    <div class="video-header reveal-up">
-      <h2 class="video-title">Ellos ya apagaron el modo manual.</h2>
-      <p class="video-subtitle">Descubre cómo los líderes más innovadores están eliminando cuellos de botella y
-        escalando sin fricción con Aldia.</p>
-    </div>
+  <!-- ========== VIDEO / TESTIMONIES SECTION ========== -->
+  <section class="video-section">
+    <div class="video-container">
+      <div class="video-header reveal-up">
+        <h2 class="video-title">Ellos ya apagaron el modo manual.</h2>
+        <p class="video-subtitle">Descubre cómo los líderes más innovadores están eliminando cuellos de botella y
+          escalando sin fricción con Aldia.</p>
+      </div>
 
-    <div class="video-placeholder-card reveal-up delay-1" style="padding: 0; width: 85%; max-width: 1000px; margin: 0 auto; box-shadow: 0 30px 60px rgba(0,0,0,0.08); background-color: #111; aspect-ratio: 16 / 9; overflow: hidden; position: relative;">
-      <iframe src="./assets/v1aldia.html" style="width: 100%; height: 100%; border: none;"></iframe>
+      <div class="video-placeholder-card reveal-up delay-1"
+        style="padding: 0; width: 85%; max-width: 1000px; margin: 0 auto; box-shadow: 0 30px 60px rgba(0,0,0,0.08); background-color: #111; aspect-ratio: 16 / 9; overflow: hidden; position: relative;">
+        <iframe data-src="./assets/v1aldia.html" class="lazy-iframe" style="width: 100%; height: 100%; border: none;"></iframe>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ========== CONTACT SECTION ========== -->
-<section class="contact-section" id="contact-section">
-  <div class="contact-container reveal-up">
-    <div class="contact-header">
-      <span class="contact-tag">CONTACTO</span>
-      <h2 class="contact-title">Hablemos de tu proyecto</h2>
-      <p class="contact-subtitle">Cuéntanos dónde estás y te ayudaremos a escalar</p>
-    </div>
+  <!-- ========== CONTACT SECTION ========== -->
+  <section class="contact-section" id="contact-section">
+    <div class="contact-container reveal-up">
+      <div class="contact-header">
+        <span class="contact-tag">CONTACTO</span>
+        <h2 class="contact-title">Hablemos de tu proyecto</h2>
+        <p class="contact-subtitle">Cuéntanos dónde estás y te ayudaremos a escalar</p>
+      </div>
 
-    <form class="contact-form">
-      <div class="form-row">
-        <div class="form-group">
-          <label for="nombre">Nombre</label>
-          <input type="text" id="nombre" placeholder="Tu nombre" required minlength="2">
+      <form class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" placeholder="Tu nombre" required minlength="2">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="tu@empresa.com" required>
+          </div>
         </div>
         <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" placeholder="tu@empresa.com" required>
+          <label for="telefono">Teléfono (opcional)</label>
+          <input type="tel" id="telefono" placeholder="Tu número de teléfono" pattern="[0-9+ ]{9,16}"
+            title="Por favor, introduce un número de teléfono válido (9-16 caracteres, números, espacios o +)">
         </div>
-      </div>
-      <div class="form-group">
-        <label for="telefono">Teléfono (opcional)</label>
-        <input type="tel" id="telefono" placeholder="Tu número de teléfono" pattern="[0-9+ ]{9,16}"
-          title="Por favor, introduce un número de teléfono válido (9-16 caracteres, números, espacios o +)">
-      </div>
-      <div class="form-group">
-        <label for="mensaje">Mensaje</label>
-        <textarea id="mensaje" rows="5" placeholder="Cuéntanos sobre tu proyecto..." required minlength="10"></textarea>
-      </div>
-      <button type="submit" class="btn-submit">
-        Enviar mensaje
-      </button>
-    </form>
-  </div>
-</section>
+        <div class="form-group">
+          <label for="mensaje">Mensaje</label>
+          <textarea id="mensaje" rows="5" placeholder="Cuéntanos sobre tu proyecto..." required
+            minlength="10"></textarea>
+        </div>
+        <button type="submit" class="btn-submit">
+          Enviar mensaje
+        </button>
+      </form>
+    </div>
+  </section>
 
-<script>
-  // Intersection Observer para las animaciones de scroll y contadores
-  document.addEventListener("DOMContentLoaded", function () {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
+  <script>
+    // Intersection Observer para las animaciones de scroll y contadores
+    document.addEventListener("DOMContentLoaded", function () {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
 
-          // Animación de contador numérico
-          const counters = entry.target.querySelectorAll('.counter-up');
-          counters.forEach(counter => {
-            const target = +counter.getAttribute('data-target');
-            const duration = 2000;
-            const increment = target / (duration / 16);
-            let current = 0;
+            // Animación de contador numérico
+            const counters = entry.target.querySelectorAll('.counter-up');
+            counters.forEach(counter => {
+              const target = +counter.getAttribute('data-target');
+              const duration = 2000;
+              const increment = target / (duration / 16);
+              let current = 0;
 
-            const updateCounter = () => {
-              current += increment;
-              if (current < target) {
-                counter.innerText = Math.ceil(current).toLocaleString('es-ES');
-                requestAnimationFrame(updateCounter);
-              } else {
-                counter.innerText = target.toLocaleString('es-ES');
-              }
-            };
-            setTimeout(updateCounter, 300);
-          });
+              const updateCounter = () => {
+                current += increment;
+                if (current < target) {
+                  counter.innerText = Math.ceil(current).toLocaleString('es-ES');
+                  requestAnimationFrame(updateCounter);
+                } else {
+                  counter.innerText = target.toLocaleString('es-ES');
+                }
+              };
+              setTimeout(updateCounter, 300);
+            });
 
-          observer.unobserve(entry.target);
-        }
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: "0px", threshold: 0.15 });
+
+      document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
+
+      // Efecto Tilt Suave para Process Cards
+      const processCards = document.querySelectorAll('.process-card');
+      processCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          const rotateX = (y - centerY) / 8;
+          const rotateY = (centerX - x) / 8;
+          
+          card.style.transition = 'none';
+          card.style.transform = `perspective(1000px) translateY(-20px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          card.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+          card.style.transform = `perspective(1000px) translateY(0) rotateX(0) rotateY(0)`;
+        });
       });
-    }, { rootMargin: "0px", threshold: 0.15 });
+    });
+  </script>
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-column">
+          <h3>Nuestros servicios</h3>
+          <ul>
+            <li><a href="#">Diagnósticos Personalizados</a></li>
+            <li><a href="#">Mejoras de SEO</a></li>
+            <li><a href="#">Generación de Bases de Datos B2B</a></li>
+            <li><a href="#">Landing Pages</a></li>
+            <li><a href="#">Webs Corporativas</a></li>
+            <li><a href="#">Bots con IA</a></li>
+            <li><a href="#">Automatizaciones de procesos</a></li>
+            <li><a href="#">Power Apps</a></li>
+            <li><a href="#">Power Automate</a></li>
+          </ul>
+        </div>
+      </div>
 
-    document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
-  });
-</script>
-<footer class="main-footer">
-  <div class="footer-container">
-    <div class="footer-top">
-      <div class="footer-column">
-        <h3>Nuestros servicios</h3>
-        <ul>
-          <li><a href="#">Diagnósticos Personalizados</a></li>
-          <li><a href="#">Mejoras de SEO</a></li>
-          <li><a href="#">Generación de Bases de Datos B2B</a></li>
-          <li><a href="#">Landing Pages</a></li>
-          <li><a href="#">Webs Corporativas</a></li>
-          <li><a href="#">Bots con IA</a></li>
-          <li><a href="#">Automatizaciones de procesos</a></li>
-          <li><a href="#">Power Apps</a></li>
-          <li><a href="#">Power Automate</a></li>
-        </ul>
+      <div class="footer-middle">
+        <div class="footer-logo">
+          <img src="./assets/logo.png" alt="Aldia Logo">
+        </div>
+        <div class="footer-social">
+          <a href="#" aria-label="YouTube">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+            </svg>
+          </a>
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-legal">
+          <a href="#">Política de privacidad</a>
+          <a href="#">Política de Cookies</a>
+          <a href="#">Condiciones Generales</a>
+          <a href="#">Aviso legal</a>
+        </div>
+        <div class="footer-copyright">
+          © Aldia Copyright 2026
+        </div>
       </div>
     </div>
-
-    <div class="footer-middle">
-      <div class="footer-logo">
-        <img src="./assets/logo.png" alt="Aldia Logo">
-      </div>
-      <div class="footer-social">
-        <a href="#" aria-label="YouTube">
-          <svg viewBox="0 0 24 24">
-            <path
-              d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-          </svg>
-        </a>
-        <a href="#" aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24">
-            <path
-              d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-          </svg>
-        </a>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      <div class="footer-legal">
-        <a href="#">Política de privacidad</a>
-        <a href="#">Política de Cookies</a>
-        <a href="#">Condiciones Generales</a>
-        <a href="#">Aviso legal</a>
-      </div>
-      <div class="footer-copyright">
-        © Aldia Copyright 2026
-      </div>
-    </div>
-  </div>
-</footer>
+  </footer>
   <!-- Aldia Global Components -->
   <link rel="stylesheet" href="./styles/chat.css">
   <script src="./scripts/chat.js"></script>
